@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+export GTEST_DIR="/home/david/repos/google_test/googletest"
 export COMPETING_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+export COMP_LIBS="/usr/local/lib"
 
 source $COMPETING_HOME/venv/bin/activate
 

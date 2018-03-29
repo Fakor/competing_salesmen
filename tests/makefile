@@ -1,19 +1,33 @@
-INCLUDE_PATHS=
+INCLUDE_PATHS=-isystem $(GTEST_DIR)/include -I$(COMPETING_HOME)/include
 
 TEST_FOLDER=$(COMPETING_HOME)/tests
-TEST_OBJECTS_FOLDER=$(TEST_FOLDER)/objects
+SRC_FOLDER=$(COMPETING_HOME)/src
 
-CPP=g++ $(INCLUDE_PATHS) -std=c++17 -g
-CPP_TEST=g++ -isystem $(GTEST_DIR)/include -pthread -std=c++17 -g
+OBJ_FOLDER=$(TEST_FOLDER)/objects
+
+TST_OBJ=$(OBJ_FOLDER)/tests
+SRC_OBJ=$(OBJ_FOLDER)/src
+
+OPT_LEVEL=o0
+LIBS=$(COMP_LIBS)/gtest/libgtest.a
+
+#CPP=g++ $(INCLUDE_PATHS) -std=c++17 -g $(OPT_LEVEL)
+CPP=g++ $(INCLUDE_PATHS) -pthread -std=c++17 -g
+
 TEST_MAIN=$(TEST_FOLDER)/gtest_main.cpp 
-TEST_LIBS=$(COMP_LIBS)/gtest/libgtest.a
 
-test: $(TEST_OBJECTS_FOLDER)/LocationTests.o
-	$(CPP_TEST) $(TEST_MAIN) $< $(TEST_LIBS) -o $@
+define TEST_OBJECTS =
+$(SRC_OBJ)/point.o \
+$(TST_OBJ)/PointTests.o
+endef
 
-$(TEST_OBJECTS_FOLDER)%.o: $(TEST_FOLDER)%.cpp
-	$(shell mkdir -p $(TEST_OBJECTS_FOLDER))
-	$(CPP_TEST) $@ $(LIB_TEST) -MMD -c -o $<
+
+test: $(TEST_OBJECTS)
+	$(CPP) $(TEST_MAIN) $(TEST_OBJECTS) $(LIBS) -o $@
+
+$(OBJ_FOLDER)%.o: $(COMPETING_HOME)%.cpp
+	$(shell mkdir -p $(shell dirname $@))
+	$(CPP) $< -MMD -c -o $@
 
 clean:
-	$(shell rm -rf $(OBJECTS_FOLDER))
+	$(shell rm -rf $(OBJ_FOLDER))

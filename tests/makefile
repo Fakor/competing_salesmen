@@ -1,7 +1,7 @@
-INCLUDE_PATHS=-isystem $(GTEST_DIR)/include -I$(COMPETING_HOME)/include
-
 TEST_FOLDER=$(COMPETING_HOME)/tests
 SRC_FOLDER=$(COMPETING_HOME)/src
+
+INCLUDE_PATHS=-isystem $(GTEST_DIR)/include -I$(COMPETING_HOME)/include -I$(TEST_FOLDER)/include
 
 OBJ_FOLDER=$(TEST_FOLDER)/objects
 
@@ -18,7 +18,9 @@ TEST_MAIN=$(TEST_FOLDER)/gtest_main.cpp
 
 define TEST_OBJECTS =
 $(SRC_OBJ)/point.o \
-$(TST_OBJ)/PointTests.o
+$(SRC_OBJ)/salesman.o \
+$(TST_OBJ)/PointTests.o \
+$(TST_OBJ)/SalesmanTest.o
 endef
 
 

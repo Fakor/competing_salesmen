@@ -1,5 +1,5 @@
-#ifndef PP_H
-#define PP_H
+#ifndef POINT_H
+#define POINT_H
 
 #include <cmath>
 
@@ -7,8 +7,8 @@ class Point {
     public:
         Point(double x_init, double y_init);
 
-        double GetX() const;
-        double GetY() const; 
+        double X() const;
+        double Y() const;
         
         double DistanceTo(const Point& target) const;
         Point DirectionTo(const Point& target) const;
@@ -17,4 +17,4 @@ class Point {
         double y;
 };
  
-#endif /* PP_H */
+#endif

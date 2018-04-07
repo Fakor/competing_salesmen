@@ -19,8 +19,10 @@ TEST_MAIN=$(TEST_FOLDER)/gtest_main.cpp
 define TEST_OBJECTS =
 $(SRC_OBJ)/point.o \
 $(SRC_OBJ)/salesman.o \
+$(SRC_OBJ)/map.o \
 $(TST_OBJ)/PointTests.o \
-$(TST_OBJ)/SalesmanTest.o
+$(TST_OBJ)/SalesmanTests.o \
+$(TST_OBJ)/MapTests.o
 endef
 
 

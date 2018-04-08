@@ -6,10 +6,16 @@ void Map::AddCities(std::initializer_list<Point> locations){
     }
 }
 
-const Point& Map::CityLocation(Index ind) const {
-    return cities_[ind];
+void Map::AddSalesman(std::initializer_list<Salesman> salesmen){
+    for(auto salesman : salesmen) {
+        cities_.emplace_back(salesman);
+    }
 }
 
 unsigned int Map::NrOfCities() const{
+    return cities_.size();
+}
+
+unsigned int Map::NrOfSalesman() const{
     return cities_.size();
 }

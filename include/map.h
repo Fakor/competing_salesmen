@@ -6,17 +6,19 @@
 
 #include "utility.h"
 #include "point.h"
+#include "salesman.h"
 
 class Map{
     public:
 
         void AddCities(std::initializer_list<Point> locations);
-
-        const Point& CityLocation(Index ind) const;
+        void AddSalesman(std::initializer_list<Salesman> salesmen);
 
         unsigned int NrOfCities() const;
+        unsigned int NrOfSalesman() const;
     private:
         std::vector<Point> cities_;
+        std::vector<Salesman> salesmen_;
 };
  
 #endif /* MAP_H */

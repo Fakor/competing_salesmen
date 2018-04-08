@@ -9,7 +9,12 @@ class Salesman: public Point{
     public:
         Salesman(double init_x, double init_y);
     
-        void MoveTowards(const Point& target, double distance);
+        void SetTarget(Point const *target);
+        void MoveTowardsTarget(double distance);
+        double DistanceToTarget() const;
+
+    private:
+        Point const *target_;
 };
  
 #endif

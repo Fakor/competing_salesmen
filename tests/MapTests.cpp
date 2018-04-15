@@ -12,10 +12,16 @@ TEST(MapTest, testAddCity){
     EXPECT_EQ(2, map.NrOfCities());
 }
 
-TEST(MapTest, testAddSalesman){
+TEST(MapTest, testAddSalesmen){
     Map map;
 
-    map.AddSalesman({{1,4},{2,5},{3,6}});
+    Salesman s1{1,4};
+    Salesman s2{2,5};
+    Salesman s3{3,6};
+
+    map.AddSalesman(&s1);
+    map.AddSalesman(&s2);
+    map.AddSalesman(&s3);
 
     EXPECT_EQ(3, map.NrOfSalesman());
 }

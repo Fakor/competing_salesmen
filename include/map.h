@@ -12,13 +12,13 @@ class Map{
     public:
 
         void AddCities(std::initializer_list<Point> locations);
-        void AddSalesman(std::initializer_list<Salesman> salesmen);
+        void AddSalesman(Salesman* salesmen);
 
         unsigned int NrOfCities() const;
         unsigned int NrOfSalesman() const;
     private:
         std::vector<Point> cities_;
-        std::vector<Salesman> salesmen_;
+        std::vector<Salesman*> salesmen_;
 };
  
 #endif /* MAP_H */

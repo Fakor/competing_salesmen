@@ -28,6 +28,7 @@ $(TST_OBJ)/MapTests.o \
 $(TST_OBJ)/MapPerspectiveTests.o
 endef
 
+DEPENDENCY_FILES=$(patsubst %.o,%.d,$(TEST_OBJECTS))
 
 test: $(TEST_OBJECTS)
 	$(CPP) $(TEST_MAIN) $(TEST_OBJECTS) $(LIBS) -o $@
@@ -38,3 +39,5 @@ $(OBJ_FOLDER)%.o: $(COMPETING_HOME)%.cpp
 
 clean:
 	$(shell rm -rf $(OBJ_FOLDER))
+
+-include $(DEPENDENCY_FILES)

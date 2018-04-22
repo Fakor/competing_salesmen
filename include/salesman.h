@@ -12,7 +12,6 @@ class Salesman: public Point{
         void SetTarget(Point const *target);
         void MoveTowardsTarget(double distance);
         std::optional<double> DistanceToTarget() const;
-
     private:
         Point const *target_{nullptr};
 };

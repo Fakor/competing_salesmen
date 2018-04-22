@@ -20,5 +20,5 @@ TEST(SalesmanTest, testDistanceToTarget) {
     Point target{2,0};
     salesman.SetTarget(&target);
 
-    EXPECT_DOUBLE_EQ(2, salesman.DistanceToTarget());
+    EXPECT_DOUBLE_EQ(2, salesman.DistanceToTarget().value());
 }

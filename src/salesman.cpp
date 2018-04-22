@@ -9,11 +9,16 @@ void Salesman::SetTarget(Point const *target){
 }
 
 void Salesman::MoveTowardsTarget(double distance){
-    Point direction = DirectionTo(*target_);
-    x += direction.X() * distance;
-    y += direction.Y() * distance;
+    if(target_ != nullptr){
+        Point direction = DirectionTo(*target_);
+        x += direction.X() * distance;
+        y += direction.Y() * distance;
+    }
 }
 
-double Salesman::DistanceToTarget() const{
-    return DistanceTo(*target_);
+std::optional<double> Salesman::DistanceToTarget() const{
+    if(target_ != nullptr){
+        return DistanceTo(*target_);
+    }
+    return std::nullopt;
 }

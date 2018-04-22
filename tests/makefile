@@ -21,6 +21,7 @@ $(SRC_OBJ)/point.o \
 $(SRC_OBJ)/salesman.o \
 $(SRC_OBJ)/map.o \
 $(SRC_OBJ)/map_perspective.o \
+$(TST_OBJ)/include/test_tools.o \
 $(TST_OBJ)/PointTests.o \
 $(TST_OBJ)/SalesmanTests.o \
 $(TST_OBJ)/MapTests.o \

@@ -1,7 +1,7 @@
 #ifndef SALESMAN_H
 #define SALESMAN_H
 
-#include <cmath>
+#include <optional>
 
 #include "point.h"
 
@@ -11,10 +11,10 @@ class Salesman: public Point{
     
         void SetTarget(Point const *target);
         void MoveTowardsTarget(double distance);
-        double DistanceToTarget() const;
+        std::optional<double> DistanceToTarget() const;
 
     private:
-        Point const *target_;
+        Point const *target_{nullptr};
 };
  
 #endif

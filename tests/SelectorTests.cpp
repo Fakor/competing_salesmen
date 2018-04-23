@@ -1,11 +1,11 @@
 #include <gtest/gtest.h>
 
-#include "map_perspective.h"
+#include "selector.h"
 
-TEST(MapPerspectiveTest, Construction){
+TEST(SelectorTest, Construction){
     Map map;
     
     EXPECT_EQ(0, map.NrOfSalesman());
-    MapPerspective perspective{map, {1,2}};
+    Selector perspective{map, {1,2}};
     EXPECT_EQ(1, map.NrOfSalesman());
 }

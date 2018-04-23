@@ -20,12 +20,12 @@ define TEST_OBJECTS =
 $(SRC_OBJ)/point.o \
 $(SRC_OBJ)/salesman.o \
 $(SRC_OBJ)/map.o \
-$(SRC_OBJ)/map_perspective.o \
+$(SRC_OBJ)/selector.o \
 $(TST_OBJ)/include/test_tools.o \
 $(TST_OBJ)/PointTests.o \
 $(TST_OBJ)/SalesmanTests.o \
 $(TST_OBJ)/MapTests.o \
-$(TST_OBJ)/MapPerspectiveTests.o
+$(TST_OBJ)/SelectorTests.o
 endef
 
 DEPENDENCY_FILES=$(patsubst %.o,%.d,$(TEST_OBJECTS))

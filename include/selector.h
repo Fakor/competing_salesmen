@@ -4,9 +4,9 @@
 #include "map.h"
 #include "salesman.h"
 
-class MapPerspective{
+class Selector{
     public:
-        MapPerspective(Map& map, Salesman salesman);
+        Selector(Map& map, Salesman salesman);
     private:
         Salesman salesman_;
         const Map& map_;

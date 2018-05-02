@@ -3,6 +3,7 @@
 void Map::AddCities(std::initializer_list<City> locations){
     for(auto city : locations) {
         cities_.emplace_back(new City(city));
+        unvisited_cities_.emplace_back(cities_.back().get());
     }
 }
 
@@ -34,6 +35,10 @@ void Map::SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index
     salesmen_[salesman_index].SetTarget(cities_[city_index].get());
 }
 
+void Map::VisitCity(unsigned int index){
+    unvisited_cities_.erase(unvisited_cities_.begin() + index);
+}
+
 SalesmanDistanceMap Map::MapSalesmanDistance(){
     SalesmanDistanceMap mapped_salesmen{};
     for(auto& s: salesmen_){
@@ -47,4 +52,8 @@ SalesmanDistanceMap Map::MapSalesmanDistance(){
         }
     }
     return mapped_salesmen;
+}
+
+UnvisitedCities* Map::GetUnvisitedCities(){
+    return &unvisited_cities_;
 }

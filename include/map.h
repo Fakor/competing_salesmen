@@ -11,6 +11,7 @@
 #include "salesman.h"
 
 using SalesmanDistanceMap = std::map<double, Salesman*>;
+using UnvisitedCities = std::vector<City*>;
 
 class Map{
     public:
@@ -26,11 +27,14 @@ class Map{
         City* GetCity(unsigned int index);
 
         void SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index);
+        void VisitCity(unsigned int index);
 
         SalesmanDistanceMap MapSalesmanDistance();
+        UnvisitedCities* GetUnvisitedCities();
     private:
         Cities cities_;
         std::vector<Salesman> salesmen_;
+        std::vector<City*> unvisited_cities_;
 };
  
 #endif /* MAP_H */

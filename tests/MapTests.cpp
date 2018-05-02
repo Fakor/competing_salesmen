@@ -12,58 +12,32 @@ TEST(MapTest, testAddCity){
     EXPECT_EQ(2, map.NrOfCities());
 }
 
-TEST(MapTest, testAddSalesmen){
+TEST(MapTest, testMapSalesmanDistance){
     Map map;
-
-    Salesman s1{1,4};
-    Salesman s2{2,5};
-    Salesman s3{3,6};
-
-    map.AddSalesman(&s1);
-    map.AddSalesman(&s2);
-    map.AddSalesman(&s3);
-
-    EXPECT_EQ(3, map.NrOfSalesman());
-}
-
-TEST(MapTest, testMoveSalesmen){
-    Map map;
-
-    Salesman s1{0,1};
-    Salesman s2{0,3};
-    Salesman s3{0,-2};
-
-    map.AddSalesman(&s1);
-    map.AddSalesman(&s2);
-    map.AddSalesman(&s3);
 
     map.AddCities({{0,0}});
-    s1.SetTarget(&map.AllCities()[0]);
-    s2.SetTarget(&map.AllCities()[0]);
-    s3.SetTarget(&map.AllCities()[0]);
 
-    map.MoveSalesmen();
+    map.AddSalesman({2,0});
+    map.AddSalesman({3,0});
+    map.AddSalesman({1,0});
 
-    testPoint({0,0}, s1);
-    testPoint({0,2}, s2);
-    testPoint({0,-1}, s3);
-}
+    map.SetSalesmanTarget(0,0);
+    map.SetSalesmanTarget(1,0);
+    map.SetSalesmanTarget(2,0);
 
-TEST(MapTest, testMoveSalesmenDifferentTargets){
-    Map map;
 
-    Salesman s1{4,0};
-    Salesman s2{5,1};
+    auto maped_salesman = map.MapSalesmanDistance();
 
-    map.AddSalesman(&s1);
-    map.AddSalesman(&s2);
+    auto map_it = maped_salesman.begin();
 
-    map.AddCities({{0,0}, {7,1}});
-    s1.SetTarget(&map.AllCities()[0]);
-    s2.SetTarget(&map.AllCities()[1]);
+    EXPECT_DOUBLE_EQ(1, map_it->first);
+    testPoint({1,0}, *map_it->second);
 
-    map.MoveSalesmen();
+    ++map_it;
+    EXPECT_DOUBLE_EQ(2, map_it->first);
+    testPoint({2,0}, *map_it->second);
 
-    testPoint({2,0}, s1);
-    testPoint({7,1}, s2);
+    ++map_it;
+    EXPECT_DOUBLE_EQ(3, map_it->first);
+    testPoint({3,0}, *map_it->second);
 }

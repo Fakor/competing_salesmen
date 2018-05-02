@@ -4,28 +4,33 @@
 #include <vector>
 #include <algorithm>
 #include <initializer_list>
+#include <map>
 
 #include "utility.h"
 #include "point.h"
 #include "salesman.h"
 
+using SalesmanDistanceMap = std::map<double, Salesman*>;
+
 class Map{
     public:
-
-        void AddCities(std::initializer_list<Point> locations);
-        void AddSalesman(Salesman* salesmen);
+        void AddCities(std::initializer_list<City> locations);
+        void AddSalesman(Salesman salesmen);
 
         unsigned int NrOfCities() const;
         unsigned int NrOfSalesman() const;
 
-        void MoveSalesmen();
+        const Cities& AllCities() const;
 
-        const std::vector<Point>& AllCities() const;
+        Salesman* GetSalesman(unsigned int index);
+        City* GetCity(unsigned int index);
+
+        void SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index);
+
+        SalesmanDistanceMap MapSalesmanDistance();
     private:
-        std::vector<Point> cities_;
-        std::vector<Salesman*> salesmen_;
-
-        double GetSalesmanMovement() const;
+        Cities cities_;
+        std::vector<Salesman> salesmen_;
 };
  
 #endif /* MAP_H */

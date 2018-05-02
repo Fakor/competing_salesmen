@@ -1,12 +1,12 @@
 #include "map.h"
 
-void Map::AddCities(std::initializer_list<Point> locations){
+void Map::AddCities(std::initializer_list<City> locations){
     for(auto city : locations) {
-        cities_.emplace_back(city);
+        cities_.emplace_back(new City(city));
     }
 }
 
-void Map::AddSalesman(Salesman* salesman){
+void Map::AddSalesman(Salesman salesman){
     salesmen_.emplace_back(salesman);
 }
 
@@ -18,34 +18,33 @@ unsigned int Map::NrOfSalesman() const{
     return salesmen_.size();
 }
 
-const std::vector<Point>& Map::AllCities() const{
+const Cities& Map::AllCities() const{
     return cities_;
 }
 
-void Map::MoveSalesmen() {
-    double distance = GetSalesmanMovement();
-    std::for_each(salesmen_.begin(), salesmen_.end(), [distance](Salesman* s) {s->MoveTowardsTarget(distance);});
+Salesman* Map::GetSalesman(unsigned int index) {
+    return &salesmen_[index];
 }
 
-double Map::GetSalesmanMovement() const{
-    double distance;
-    bool distance_found{false};
+City* Map::GetCity(unsigned int index){
+    return cities_[index].get();
+}
+
+void Map::SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index){
+    salesmen_[salesman_index].SetTarget(cities_[city_index].get());
+}
+
+SalesmanDistanceMap Map::MapSalesmanDistance(){
+    SalesmanDistanceMap mapped_salesmen{};
     for(auto& s: salesmen_){
-        std::optional<double> salesman_distance = s->DistanceToTarget();
+        std::optional<double> salesman_distance = s.DistanceToTarget();
         if(salesman_distance.has_value()){
-            if(distance_found){
-                distance = std::min(distance, salesman_distance.value());
+            double distance = salesman_distance.value();
+            if(mapped_salesmen.find(distance) != mapped_salesmen.end()){
+                throw 1;
             }
-            else{
-                distance = salesman_distance.value();
-                distance_found = true;
-            }
+            mapped_salesmen.emplace(std::make_pair(distance, &s));
         }
     }
-    if(distance_found){
-        return distance;
-    }
-    else{
-        return 0;
-    }
+    return mapped_salesmen;
 }

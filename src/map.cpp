@@ -35,8 +35,14 @@ void Map::SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index
     salesmen_[salesman_index].SetTarget(cities_[city_index].get());
 }
 
-void Map::VisitCity(unsigned int index){
-    unvisited_cities_.erase(unvisited_cities_.begin() + index);
+void Map::VisitCity(Point* const city){
+    for(auto city_it = unvisited_cities_.begin(); city_it != unvisited_cities_.end(); ++city_it){
+        if(*city_it == city){
+            unvisited_cities_.erase(city_it);
+            return;
+        }
+    }
+    throw 50;
 }
 
 SalesmanDistanceMap Map::MapSalesmanDistance(){

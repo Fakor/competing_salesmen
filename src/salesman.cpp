@@ -4,8 +4,15 @@ Salesman::Salesman(double init_x, double init_y)
 : Point{init_x, init_y}
 {}
 
-void Salesman::SetTarget(Point const *target){
+void Salesman::SetTarget(Point *target){
     target_ = target;
+}
+
+void Salesman::MoveToTarget(){
+    if(target_ != nullptr){
+        x = target_->X();
+        y = target_->Y();
+    }
 }
 
 void Salesman::MoveTowardsTarget(double distance){
@@ -21,4 +28,8 @@ std::optional<double> Salesman::DistanceToTarget() const{
         return DistanceTo(*target_);
     }
     return std::nullopt;
+}
+
+Point* Salesman::GetTarget() const{
+    return target_;
 }

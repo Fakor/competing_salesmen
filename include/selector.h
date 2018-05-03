@@ -1,15 +1,21 @@
-#ifndef MAP_PERSPECTIVE_H
-#define MAP_PERSPECTIVE_H
+#ifndef SELECTOR_H
+#define SELECTOR_H 
 
-#include "map.h"
+#include "utility.h"
 #include "salesman.h"
 
 class Selector{
     public:
-        Selector(Map& map, Salesman salesman);
-    private:
-        Salesman salesman_;
-        const Map& map_;
+        virtual void ChooseTarget() = 0;
+
+        void SetCities(UnvisitedCities* cities);
+        void SetSalesman(Salesman* salesman);
+        void SetTarget(City* city);
+
+    protected:
+        Salesman* salesman_;
+
+        UnvisitedCities* cities_;
 };
  
-#endif /* MAP_PERSPECTIVE_H */
+#endif 

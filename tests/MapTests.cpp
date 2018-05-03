@@ -53,7 +53,10 @@ TEST(MapTest, testUnvisitedCities){
     testPoint({0,0}, *unvisited_cities->at(0));
     testPoint({1,0}, *unvisited_cities->at(1));
     testPoint({2,0}, *unvisited_cities->at(2));
-    map.VisitCity(1);
+
+    City* city = map.GetCity(1); 
+
+    map.VisitCity(city);
 
     EXPECT_EQ(2, unvisited_cities->size());
     testPoint({0,0}, *unvisited_cities->at(0));

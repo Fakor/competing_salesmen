@@ -1,7 +1,13 @@
 #include "selector.h"
 
-Selector::Selector(Map& map, Salesman salesman)
-: map_{map}, salesman_{salesman}
-{
-    map.AddSalesman(&salesman);
+void Selector::SetCities(UnvisitedCities* cities){
+    cities_ = cities;
+}
+
+void Selector::SetSalesman(Salesman* salesman){
+    salesman_ = salesman;
+}
+
+void Selector::SetTarget(City* city){
+    salesman_->SetTarget(city);
 }

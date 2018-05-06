@@ -7,23 +7,28 @@
 #include "map.h"
 #include "engine.h"
 
-TEST(EngineTest, Closest){
+TEST(EngineTest, PerformTurn){
     Map map;
     
     map.AddCities({{0,6}, {-3,0}, {5,1}});
     map.AddSalesman({1,0});
+    map.AddSalesman({-8,0});
 
     Engine engine{map};
 
     std::unique_ptr<Selector> selector(new Closest());
 
     Salesman& salesman = *map.GetSalesman(0);
+    Salesman& salesman2 = *map.GetSalesman(1);
 
     engine.AddSelector(std::unique_ptr<Selector>(new Closest()), 0);
+    engine.AddSelector(std::unique_ptr<Selector>(new Closest()), 1);
 
     engine.PerformTurn();
-    testPoint({-3,0}, salesman);
+    EXPECT_TRUE(testPoint({-3,0}, salesman));
+    EXPECT_TRUE(testPoint({-4,0}, salesman2));
 
     engine.PerformTurn();
-    testPoint({0,6}, salesman);
+    EXPECT_TRUE(testPoint({0,6}, salesman));
+    EXPECT_TRUE(testPoint({-0.2789,5.58156}, salesman2));
 }

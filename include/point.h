@@ -12,6 +12,8 @@ class Point {
         
         double DistanceTo(const Point& target) const;
         Point DirectionTo(const Point& target) const;
+
+        bool operator ==(const Point& other) const;
     protected:
         double x;
         double y;

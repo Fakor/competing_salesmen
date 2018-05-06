@@ -25,6 +25,9 @@ void Engine::PerformTurn(){
         double distance = mapped_salesmen_iterator->first;
         mapped_salesmen_iterator->second->MoveToTarget();
         map_.VisitCity(mapped_salesmen_iterator->second->GetTarget());
+        while(++mapped_salesmen_iterator != mapped_salesmen.end()){
+            mapped_salesmen_iterator->second->MoveTowardsTarget(distance);
+        }
     }
 }
 

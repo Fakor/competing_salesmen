@@ -12,9 +12,7 @@ void Engine::AddSelector(SelectorType selector, unsigned int salesman_index){
 }
 
 void Engine::SelectTargets(){
-    for(auto& selector: selectors_){
-        selector->ChooseTarget();
-    }
+    std::for_each(selectors_.begin(), selectors_.end(), [](std::unique_ptr<Selector>& s){s->ChooseTarget();});
 }
 
 void Engine::PerformTurn(){

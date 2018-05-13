@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include <map>
+
 #include "test_tools.h"
 
 #include "basic_selectors.h"
@@ -28,7 +30,14 @@ TEST(EngineTest, PerformTurn){
     EXPECT_TRUE(testPoint({-3,0}, salesman));
     EXPECT_TRUE(testPoint({-4,0}, salesman2));
 
+    Scoreboard& scoreboard = engine.GetScoreboard();
+    EXPECT_EQ(1, scoreboard[&salesman]);
+    EXPECT_EQ(0, scoreboard[&salesman2]);
+
     engine.PerformTurn();
     EXPECT_TRUE(testPoint({0,6}, salesman));
     EXPECT_TRUE(testPoint({-0.2789,5.58156}, salesman2));
+
+    EXPECT_EQ(2, scoreboard[&salesman]);
+    EXPECT_EQ(0, scoreboard[&salesman2]);
 }

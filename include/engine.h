@@ -2,11 +2,13 @@
 #define ENGINE_H
 
 #include <memory>
+#include <map>
 
 #include "selector.h"
 #include "map.h"
 
 using SelectorType = std::unique_ptr<Selector>;
+using Scoreboard = std::map<Salesman*, int>;
 
 class Engine{
     public:
@@ -19,6 +21,7 @@ class Engine{
         void SelectTargets();
         void PerformTurn();
 
+        Scoreboard& GetScoreboard(); 
     private:
         Map& map_;
         std::vector<SelectorType> selectors_;
@@ -26,6 +29,8 @@ class Engine{
         Salesman* NextSalesman();
 
         int current_salesman_index{0};
+
+        Scoreboard scoreboard_;
 };
  
 #endif /* ENGINE_H */

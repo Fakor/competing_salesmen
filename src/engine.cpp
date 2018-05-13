@@ -23,6 +23,7 @@ void Engine::PerformTurn(){
         double distance = mapped_salesmen_iterator->first;
         mapped_salesmen_iterator->second->MoveToTarget();
         map_.VisitCity(mapped_salesmen_iterator->second->GetTarget());
+	++scoreboard_[mapped_salesmen_iterator->second];
         while(++mapped_salesmen_iterator != mapped_salesmen.end()){
             mapped_salesmen_iterator->second->MoveTowardsTarget(distance);
         }
@@ -31,4 +32,8 @@ void Engine::PerformTurn(){
 
 Salesman* Engine::NextSalesman(){
     return map_.GetSalesman(current_salesman_index++);
+}
+
+Scoreboard& Engine::GetScoreboard(){
+    return scoreboard_;
 }

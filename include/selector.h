@@ -10,7 +10,7 @@ class Selector{
 
         void SetCities(UnvisitedCities* cities);
         void SetSalesman(Salesman* salesman);
-        void SetTarget(City* city);
+        void SetTarget(const City* city);
 
     protected:
         Salesman* salesman_;

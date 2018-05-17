@@ -3,7 +3,6 @@
 void Map::AddCities(std::initializer_list<City> locations){
     for(auto city : locations) {
         cities_.emplace_back(new City(city));
-        unvisited_cities_.emplace_back(cities_.back().get());
     }
 }
 
@@ -35,16 +34,6 @@ void Map::SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index
     salesmen_[salesman_index].SetTarget(cities_[city_index].get());
 }
 
-void Map::VisitCity(Point* const city){
-    for(auto city_it = unvisited_cities_.begin(); city_it != unvisited_cities_.end(); ++city_it){
-        if(*city_it == city){
-            unvisited_cities_.erase(city_it);
-            return;
-        }
-    }
-    throw 50;
-}
-
 SalesmanDistanceMap Map::MapSalesmanDistance(){
     SalesmanDistanceMap mapped_salesmen{};
     for(auto& s: salesmen_){
@@ -60,6 +49,10 @@ SalesmanDistanceMap Map::MapSalesmanDistance(){
     return mapped_salesmen;
 }
 
-UnvisitedCities* Map::GetUnvisitedCities(){
-    return &unvisited_cities_;
+UnvisitedCities Map::GetCities() const{
+    UnvisitedCities cities_copy;
+    for(auto& city: cities_){
+      cities_copy.emplace_back(city.get());
+    }
+    return cities_copy;
 }

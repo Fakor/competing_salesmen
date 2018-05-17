@@ -8,6 +8,6 @@ void Selector::SetSalesman(Salesman* salesman){
     salesman_ = salesman;
 }
 
-void Selector::SetTarget(City* city){
+void Selector::SetTarget(const City* city){
     salesman_->SetTarget(city);
 }

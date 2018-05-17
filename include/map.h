@@ -24,15 +24,13 @@ class Map{
         City* GetCity(unsigned int index);
 
         void SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index);
-        void VisitCity(Point* const city);
 
         void SalesmanChooseTargets();
         SalesmanDistanceMap MapSalesmanDistance();
-        UnvisitedCities* GetUnvisitedCities();
+        UnvisitedCities GetCities() const;
     private:
         Cities cities_;
         std::vector<Salesman> salesmen_;
-        std::vector<City*> unvisited_cities_;
 };
  
 #endif /* MAP_H */

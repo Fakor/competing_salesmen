@@ -21,10 +21,15 @@ class Engine{
         void SelectTargets();
         void PerformTurn();
 
-        Scoreboard& GetScoreboard(); 
+	void VisitCity(const Point* city);
+
+        Scoreboard& GetScoreboard();
+	bool RoundFinnished() const;
     private:
         Map& map_;
         std::vector<SelectorType> selectors_;
+
+	UnvisitedCities cities_;
 
         Salesman* NextSalesman();
 

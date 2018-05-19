@@ -5,6 +5,12 @@ export COMPETING_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 export COMP_LIBS="/usr/local/lib"
 
+export TEST_FOLDER=$COMPETING_HOME/tests
+export SRC_FOLDER=$COMPETING_HOME/src
+export OBJ_FOLDER=$COMPETING_HOME/objects
+export TST_OBJ_FOLDER=$OBJ_FOLDER/tests
+export SRC_OBJ_FOLDER=$OBJ_FOLDER/src
+
 source $COMPETING_HOME/venv/bin/activate
 
 bash

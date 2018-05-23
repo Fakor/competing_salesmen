@@ -1,11 +1,13 @@
 #include <iostream>
 
-#include "engine.h"
+#include "map.h"
+#include "map_generator.h"
+#include "log_tools.h"
 
 int main(int argc, char **argv){
-    std::cout << argv[0] << "\n";
-    std::cout << argv[1] << "\n";
-    std::cout << argv[2] << "\n";    
+  Map map = GenerateMap(4, 3);
+
+  print_cities(map.GetCities());
 
     return 0;
 }

@@ -6,7 +6,9 @@ $SRC_OBJ_FOLDER/salesman.o \
 $SRC_OBJ_FOLDER/map.o \
 $SRC_OBJ_FOLDER/selector.o \
 $SRC_OBJ_FOLDER/engine.o \
-$SRC_OBJ_FOLDER/basic_selectors.o"
+$SRC_OBJ_FOLDER/basic_selectors.o \
+$SRC_OBJ_FOLDER/map_generator.o \
+$SRC_OBJ_FOLDER/log_tools.o"
 
 export TEST_OBJECTS="\
 $TST_OBJ_FOLDER/include/test_tools.o \

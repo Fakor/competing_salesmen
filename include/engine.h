@@ -7,8 +7,9 @@
 #include "selector.h"
 #include "map.h"
 
+#include "utility.h"
+
 using SelectorType = std::unique_ptr<Selector>;
-using Scoreboard = std::map<Salesman*, int>;
 
 class Engine{
     public:

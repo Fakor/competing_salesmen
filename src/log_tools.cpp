@@ -9,3 +9,9 @@ void print_cities(const UnvisitedCities &cities){
     print_city(*city);
   }
 }
+
+void print_scoreboard(const Scoreboard &scoreboard){
+  for(auto& it: scoreboard){
+    std::cout << it.second << "\n";
+  }
+}

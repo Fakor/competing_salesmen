@@ -7,5 +7,6 @@
 
 void print_city(const City &city);
 void print_cities(const UnvisitedCities &cities);
+void print_scoreboard(const Scoreboard &scoreboard);
 
 #endif

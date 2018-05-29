@@ -18,8 +18,6 @@ TEST(EngineTest, PerformTurn){
 
     Engine engine{map};
 
-    std::unique_ptr<Selector> selector(new Closest());
-
     Salesman& salesman = *map.GetSalesman(0);
     Salesman& salesman2 = *map.GetSalesman(1);
 
@@ -50,4 +48,26 @@ TEST(EngineTest, PerformTurn){
 
     EXPECT_EQ(2, scoreboard[&salesman]);
     EXPECT_EQ(1, scoreboard[&salesman2]);   
+}
+
+TEST(EngineTest, PerformRound){
+    Map map;
+
+    map.AddCities({{0,6}, {-3,0}, {5,1}});
+    map.AddSalesman({1,0});
+    map.AddSalesman({-8,0});
+
+    Engine engine{map};
+
+    Salesman& salesman = *map.GetSalesman(0);
+    Salesman& salesman2 = *map.GetSalesman(1);
+
+    engine.AddSelector(std::unique_ptr<Selector>(new Closest()), 0);
+    engine.AddSelector(std::unique_ptr<Selector>(new Closest()), 1);
+    engine.PerformRound();
+    Scoreboard& scoreboard = engine.GetScoreboard();
+
+    EXPECT_EQ(2, scoreboard[&salesman]);
+    EXPECT_EQ(1, scoreboard[&salesman2]);
+    EXPECT_TRUE(engine.RoundFinnished());
 }

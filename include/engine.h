@@ -20,6 +20,7 @@ class Engine{
 
         void SelectTargets();
         void PerformTurn();
+	void PerformRound();
 
 	void VisitCity(const Point* city);
 

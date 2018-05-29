@@ -36,6 +36,12 @@ void Engine::PerformTurn(){
     }
 }
 
+void Engine::PerformRound(){
+  while(!RoundFinnished()){
+    PerformTurn();
+  }
+}
+
 Salesman* Engine::NextSalesman(){
     return map_.GetSalesman(current_salesman_index++);
 }

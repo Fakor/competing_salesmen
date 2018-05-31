@@ -1,3 +1,8 @@
+include build_targets
+
+$(info $(SRC_OBJECTS))
+$(info $(TEST_OBJECTS))
+
 ifeq ($(MAKECMDGOALS), build)
 MAIN=$(SRC_FOLDER)/main.cpp
 EXECUTABLE=$(COMPETING_HOME)/main
@@ -17,10 +22,11 @@ TEST_LIBS=$(COMP_LIBS)/gtest/libgtest.a
 
 CPP=g++ $(INCLUDE_PATHS) -pthread -std=c++17 -g
 
+$(info CC $(CPP))
+
 DEPENDENCY_FILES=$(patsubst %.o,%.d,$(OBJECTS))
 
 build test: $(EXECUTABLE)
-
 
 $(EXECUTABLE): $(OBJECTS) $(MAIN)
 	$(CPP) $(MAIN) $(OBJECTS) $(LIBS) -o $@

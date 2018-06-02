@@ -13,7 +13,7 @@ public:
   
   Map GenerateMap() override;
 
- private:
+private:
   Cities cities_;
   std::vector<Salesman> salesmen_;
 };

@@ -58,3 +58,7 @@ Scoreboard& Engine::GetScoreboard(){
 bool Engine::RoundFinnished() const{
   return cities_.empty();
 }
+
+UnvisitedCities Engine::GetCities() const{
+  return map_.GetCities();
+}

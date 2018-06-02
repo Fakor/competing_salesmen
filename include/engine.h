@@ -28,6 +28,8 @@ class Engine{
   Scoreboard& GetScoreboard();
   bool RoundFinnished() const;
 
+  UnvisitedCities GetCities() const;
+
  private:
   std::unique_ptr<MapGenerator> generator_;
   Map map_;

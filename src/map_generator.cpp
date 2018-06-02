@@ -1,6 +1,6 @@
 #include "map_generator.h"
 
-Map GenerateMap(unsigned int nr_of_cities, double size, int seed){
+/*Map GenerateMap(unsigned int nr_of_cities, double size, int seed){
     Map map;
     std::random_device rd;  //Will be used to obtain a seed for the random number engine
     std::mt19937 gen(seed);
@@ -9,4 +9,4 @@ Map GenerateMap(unsigned int nr_of_cities, double size, int seed){
         map.AddCities({{dis(gen), dis(gen)}});
     }
     return map;
-}
+    }*/

@@ -1,9 +1,10 @@
 #include "engine.h"
 
-Engine::Engine(Map& map)
-  :map_{map}, cities_{map.GetCities()}
+Engine::Engine(std::unique_ptr<MapGenerator> generator)
+  : generator_{std::move(generator)}
 {
-    
+  map_ = generator_->GenerateMap();
+  cities_ = map_.GetCities();
 }
 
 void Engine::AddSelector(SelectorType selector, unsigned int salesman_index){
@@ -15,6 +16,10 @@ void Engine::AddSelector(SelectorType selector, unsigned int salesman_index){
 void Engine::VisitCity(const Point* city){
     auto city_it = std::find(cities_.begin(), cities_.end(), city);
     cities_.erase(city_it);
+}
+
+Salesman& Engine::GetSalesman(int index){
+  return *map_.GetSalesman(index);
 }
 
 void Engine::SelectTargets(){

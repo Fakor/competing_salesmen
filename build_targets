@@ -6,7 +6,8 @@ selector.o \
 engine.o \
 basic_selectors.o \
 map_generator.o \
-log_tools.o
+log_tools.o \
+custom_generator.o
 endef
 
 SRC_OBJECTS=$(addprefix $(SRC_OBJ_FOLDER)/, $(SRC_OBJECTS_))
@@ -15,7 +16,6 @@ define TEST_OBJECTS_
 include/test_tools.o \
 PointTests.o \
 SalesmanTests.o \
-MapTests.o \
 EngineTests.o
 endef
 

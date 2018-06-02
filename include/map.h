@@ -11,26 +11,23 @@
 #include "salesman.h"
 
 class Map{
-    public:
-        void AddCities(std::initializer_list<City> locations);
-        void AddSalesman(Salesman salesmen);
+ public:
+  Map();
+  Map(Cities cities, std::vector<Salesman> salesmen);
+  unsigned int NrOfCities() const;
+  unsigned int NrOfSalesman() const;
 
-        unsigned int NrOfCities() const;
-        unsigned int NrOfSalesman() const;
+  const Cities& AllCities() const;
 
-        const Cities& AllCities() const;
+  Salesman* GetSalesman(unsigned int index);
+  City& GetCity(unsigned int index);
 
-        Salesman* GetSalesman(unsigned int index);
-        City* GetCity(unsigned int index);
+  SalesmanDistanceMap MapSalesmanDistance();
+  UnvisitedCities GetCities() const;
 
-        void SetSalesmanTarget(unsigned int salesman_index, unsigned int city_index);
-
-        void SalesmanChooseTargets();
-        SalesmanDistanceMap MapSalesmanDistance();
-        UnvisitedCities GetCities() const;
-    private:
-        Cities cities_;
-        std::vector<Salesman> salesmen_;
+ private:
+  Cities cities_;
+  std::vector<Salesman> salesmen_;
 };
  
 #endif /* MAP_H */

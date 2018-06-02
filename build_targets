@@ -5,7 +5,6 @@ map.o \
 selector.o \
 engine.o \
 basic_selectors.o \
-map_generator.o \
 log_tools.o \
 custom_generator.o \
 random_generator.o

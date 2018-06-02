@@ -18,11 +18,11 @@ int main(int argc, char **argv){
     seed=rd();
   }
   printf("SEED: %d\n", seed);
-  std::unique_ptr<RandomGenerator> generator(new RandomGenerator(4,3,2,seed));
+  std::unique_ptr<RandomGenerator> generator(new RandomGenerator(20,3,2,seed));
 
   Engine engine(std::move(generator));
 
-  engine.AddSelector(std::unique_ptr<Selector>(new Closest()), 0);
+  engine.AddSelector(std::unique_ptr<Selector>(new RandomSelector(seed)), 0);
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()), 1);
   engine.PerformRound();
   print_cities(engine.GetCities());

@@ -18,6 +18,14 @@ INCLUDE_PATHS=-isystem $(GTEST_DIR)/include -I$(COMPETING_HOME)/include -I$(TEST
 LIBS=$(COMP_LIBS)/gtest/libgtest.a
 endif
 
+ifeq ($(MAKECMDGOALS), server)
+MAIN=$(SRC_FOLDER)/server.cpp
+EXECUTABLE=$(COMPETING_HOME)/server
+OBJECTS=$(SRC_OBJECTS)
+INCLUDE_PATHS=-I$(COMPETING_HOME)/include
+LIBS=-lboost_system
+endif
+
 TEST_LIBS=$(COMP_LIBS)/gtest/libgtest.a
 
 CPP=g++ $(INCLUDE_PATHS) -pthread -std=c++17 -g
@@ -26,7 +34,7 @@ $(info CC $(CPP))
 
 DEPENDENCY_FILES=$(patsubst %.o,%.d,$(OBJECTS))
 
-build test: $(EXECUTABLE)
+build test server: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS) $(MAIN)
 	$(CPP) $(MAIN) $(OBJECTS) $(LIBS) -o $@

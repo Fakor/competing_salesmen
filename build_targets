@@ -7,7 +7,8 @@ engine.o \
 basic_selectors.o \
 log_tools.o \
 custom_generator.o \
-random_generator.o
+random_generator.o \
+json_conversion.o
 endef
 
 SRC_OBJECTS=$(addprefix $(SRC_OBJ_FOLDER)/, $(SRC_OBJECTS_))

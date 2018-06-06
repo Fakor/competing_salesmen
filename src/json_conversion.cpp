@@ -10,7 +10,7 @@ std::string JsonCities(const UnvisitedCities &cities){
     else{
       ret += ",";
     }
-    ret += "{\"x\":" + std::to_string(city->X()) + ", \"y\":" + std::to_string(city->Y()) + "}";
+    ret += "[" + std::to_string(city->X()) + ", " + std::to_string(city->Y()) + "]";
   }
   ret += "]}";
   return ret;

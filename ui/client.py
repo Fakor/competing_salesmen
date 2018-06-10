@@ -3,8 +3,23 @@ import sys
 import os
 import json
 
-HOST = '127.0.0.1'
-PORT = 1024
+DEFAULT_HOST = '127.0.0.1'
+DEFAULT_PORT = 1024
+
+class Client:
+    def __init__(self, host=DEFAULT_HOST, port=DEFAULT_PORT):
+        self.host=host
+        self.port=port
+
+    def transceive(self, command):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((self.host, self.port))
+            s.send(command.encode())
+            data = s.recv(1024)
+            data = data.decode("utf-8")
+            data = json.loads(data)
+            s.close()
+        return data
 
 def main():
     while True:

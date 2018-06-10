@@ -13,4 +13,6 @@ export SRC_OBJ_FOLDER=$OBJ_FOLDER/src
 
 source $COMPETING_HOME/venv/bin/activate
 
+export PYTHONPATH=$COMPETING_HOME/ui
+
 bash

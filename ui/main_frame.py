@@ -1,26 +1,50 @@
 import wx
 
 from client import Client
+from map_panel import MapPanel
 
 class MainFrame(wx.Frame):
     def __init__(self):
-        wx.Frame.__init__(self, None, wx.ID_ANY, title="MainFrame", size=(300,250))
-        panel = wx.Panel(self)
-        box = wx.BoxSizer(wx.VERTICAL)
+        wx.Frame.__init__(self, None)
+        self.panel = wx.Panel(self, id=wx.ID_ANY)
 
-        self.btn = wx.Button(panel,-1,"Generate map")
-        box.Add(self.btn,0,wx.ALIGN_CENTER)
+        self.SetClientSize((600,400))
+        self.Center()
+
+        self.btn = wx.Button(self.panel,wx.ID_ANY,"Generate map")
+        self.exit_btn = wx.Button(self.panel, wx.ID_ANY, "EXIT")
+
         self.btn.Bind(wx.EVT_BUTTON,self.OnClicked)
+        self.exit_btn.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
+        self.map_panel = MapPanel(self.panel)
+
+        top_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        button_sizer = wx.BoxSizer(wx.VERTICAL)
+        map_sizer = wx.BoxSizer(wx.VERTICAL)
+
+        map_sizer.Add(self.map_panel, 0, wx.ALIGN_TOP|wx.FIXED_MINSIZE)
+
+        button_sizer.Add(self.btn, 0, wx.ALL)
+        button_sizer.Add(self.exit_btn, 0, wx.ALL)
+
+        top_sizer.Add(button_sizer, 0, wx.LEFT)
+        top_sizer.Add(map_sizer, 0, wx.ALIGN_TOP)
+
+        self.panel.SetSizer(top_sizer)
+        top_sizer.Fit(self)
         self.command=None
         self.client=Client()
         self.Show()
 
     def OnClicked(self, event):
         btn = event.GetEventObject().GetLabel() 
-        print("Label of pressed button = ",btn)
         data = self.client.transceive("generate_map")
         print(data)
+
+    def ExitButtonClicked(self, event):
+        print("Exit program")
+        self.Close()
 
 if __name__ == "__main__":
     app = wx.App(False)

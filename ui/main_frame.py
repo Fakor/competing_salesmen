@@ -17,7 +17,7 @@ class MainFrame(wx.Frame):
         self.btn.Bind(wx.EVT_BUTTON,self.OnClicked)
         self.exit_btn.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
-        self.map_panel = MapPanel(self.panel)
+        self.map_panel = MapPanel(self.panel, (300,200), (4,4))
 
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         button_sizer = wx.BoxSizer(wx.VERTICAL)
@@ -40,7 +40,7 @@ class MainFrame(wx.Frame):
     def OnClicked(self, event):
         btn = event.GetEventObject().GetLabel() 
         data = self.client.transceive("generate_map")
-        print(data)
+        self.map_panel.set_map(data)
 
     def ExitButtonClicked(self, event):
         print("Exit program")

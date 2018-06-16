@@ -18,6 +18,10 @@ void Engine::VisitCity(const Point* city){
     cities_.erase(city_it);
 }
 
+void Engine::GenerateNewMap(){
+  map_ = generator_->GenerateMap();
+}
+
 Salesman& Engine::GetSalesman(int index){
   return *map_.GetSalesman(index);
 }

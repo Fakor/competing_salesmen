@@ -50,7 +50,14 @@ int main(int argc, char **argv){
 
 	    if(len > 0){
                 std::cout << "Content: " << content << std::endl;
-                std::string response = JsonCities(engine.GetCities());
+		std::string response;
+		if(content.compare("generate_map")){
+		  engine.GenerateNewMap();
+		  response = JsonCities(engine.GetCities());
+		}
+		else{
+		  response = content + " is not a know command";
+		}
                 boost::asio::write(socket, boost::asio::buffer(response, response.size()), ignored_error);
 	    }
 

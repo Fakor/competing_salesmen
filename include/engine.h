@@ -22,6 +22,8 @@ class Engine{
   void PerformTurn();
   void PerformRound();
 
+  void GenerateNewMap();
+
   void VisitCity(const Point* city);
 
   Salesman& GetSalesman(int index);

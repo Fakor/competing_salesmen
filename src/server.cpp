@@ -53,7 +53,7 @@ int main(int argc, char **argv){
 		std::string response;
 		if(content.compare("generate_map")){
 		  engine.GenerateNewMap();
-		  response = JsonCities(engine.GetCities());
+		  response = JsonMap(engine.GetMap());
 		}
 		else{
 		  response = content + " is not a know command";

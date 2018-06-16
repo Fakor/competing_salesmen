@@ -49,3 +49,7 @@ UnvisitedCities Map::GetCities() const{
   }
   return cities_copy;
 }
+
+const std::vector<Salesman>& Map::GetSalesmen() const{
+  return salesmen_;
+}

@@ -66,3 +66,7 @@ bool Engine::RoundFinnished() const{
 UnvisitedCities Engine::GetCities() const{
   return map_.GetCities();
 }
+
+const Map& Engine::GetMap() const{
+  return map_;
+}

@@ -32,6 +32,7 @@ class Engine{
 
   UnvisitedCities GetCities() const;
 
+  const Map& GetMap() const;
  private:
   std::unique_ptr<MapGenerator> generator_;
   Map map_;

@@ -28,10 +28,15 @@ class MapPanel(wx.Panel):
         dc.Clear()
         brush = wx.brush = wx.Brush("blue")
         dc.SetBackground(brush)
-        dc.SetPen(wx.Pen(wx.RED, 4))
+        dc.SetPen(wx.Pen(wx.BLUE, 4))
         for city in self._map.get("cities", []):
             x = self.border[0] + city[0] * x_scaler
             y = h -self.border[1] - city[1] * y_scaler
+            dc.DrawCircle(x, y, 1)
+        dc.SetPen(wx.Pen(wx.RED, 4))
+        for salesman in self._map.get("salesmen", []):
+            x = self.border[0] + salesman[0] * x_scaler
+            y = h -self.border[1] - salesman[1] * y_scaler
             dc.DrawCircle(x, y, 1)
 
 if __name__ == "__main__":

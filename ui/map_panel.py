@@ -9,6 +9,7 @@ class MapPanel(wx.Panel):
         self.Bind(wx.EVT_SIZE, self.on_size)
         self.Bind(wx.EVT_PAINT, self.print_map)
         self._map = {}
+        self.border = (5,5)
 
     def on_size(self, event):
         print("SIZE")
@@ -20,9 +21,8 @@ class MapPanel(wx.Panel):
 
     def print_map(self, event):
         w, h = self.GetClientSize()
-        print("DRAWING", self._map, w, h)
-        x_scaler = w / self.map_size[0]
-        y_scaler = h / self.map_size[1]
+        x_scaler = ( w - self.border[0]) / self.map_size[0]
+        y_scaler = ( h - self.border[1]) / self.map_size[1]
 
         dc = wx.AutoBufferedPaintDC(self)
         dc.Clear()
@@ -30,7 +30,9 @@ class MapPanel(wx.Panel):
         dc.SetBackground(brush)
         dc.SetPen(wx.Pen(wx.RED, 4))
         for city in self._map.get("cities", []):
-            dc.DrawCircle(city[0] * x_scaler, city[1] * y_scaler, 1)
+            x = self.border[0] + city[0] * x_scaler
+            y = h -self.border[1] - city[1] * y_scaler
+            dc.DrawCircle(x, y, 1)
 
 if __name__ == "__main__":
     app=wx.App(False)

@@ -17,7 +17,7 @@ class MainFrame(wx.Frame):
         self.btn.Bind(wx.EVT_BUTTON,self.OnClicked)
         self.exit_btn.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
-        self.map_panel = MapPanel(self.panel, (300,200), (4,4))
+        self.map_panel = MapPanel(self.panel, (200,200), (3,3))
 
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         button_sizer = wx.BoxSizer(wx.VERTICAL)

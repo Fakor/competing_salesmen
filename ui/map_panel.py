@@ -19,6 +19,9 @@ class MapPanel(wx.Panel):
         self._map = new_map
         self.Refresh()
 
+    def move_salesmen(self, data):
+        print("Moving salesmen", data)
+
     def print_map(self, event):
         w, h = self.GetClientSize()
         x_scaler = ( w - self.border[0]) / self.map_size[0]

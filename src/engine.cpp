@@ -67,6 +67,10 @@ UnvisitedCities Engine::GetCities() const{
   return map_.GetCities();
 }
 
+const std::vector<Salesman> Engine::GetSalesmen() const{
+  return map_.GetSalesmen();
+}
+
 const Map& Engine::GetMap() const{
   return map_;
 }

@@ -16,8 +16,12 @@ std::string JsonCities(const UnvisitedCities &cities){
   return ret;
 }
 
-std::string JsonSalesmen(const std::vector<Salesman> salesmen){
-  std::string ret = "\"salesmen\": [";
+std::string JsonSalesmen(const std::vector<Salesman> salesmen, bool with_brackets){
+  std::string ret{""};
+  if(with_brackets){
+    ret += "{";
+  }
+  ret += "\"salesmen\": [";
   bool first = true;
   for(auto& salesman: salesmen){
     if(first){
@@ -28,6 +32,9 @@ std::string JsonSalesmen(const std::vector<Salesman> salesmen){
     ret  += "[" + std::to_string(salesman.X()) + ", " + std::to_string(salesman.Y()) + "]";
   }
   ret += "]";
+  if(with_brackets){
+    ret += "}";
+  }
   return ret;
 }
 

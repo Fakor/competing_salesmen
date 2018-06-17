@@ -51,9 +51,12 @@ int main(int argc, char **argv){
 	    if(len > 0){
                 std::cout << "Content: " << content << std::endl;
 		std::string response;
-		if(content.compare("generate_map")){
+		if(content.compare("generate_map") == 0){
 		  engine.GenerateNewMap();
 		  response = JsonMap(engine.GetMap());
+		} else if(content.compare("perform_turn")){
+		  std::cout << "PERFORMING TURN\n";
+		  response = JsonSalesmen(engine.GetSalesmen(), true);
 		}
 		else{
 		  response = content + " is not a know command";

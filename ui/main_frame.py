@@ -46,7 +46,8 @@ class MainFrame(wx.Frame):
         self.map_panel.set_map(data)
 
     def PerformTurn(self, event):
-        pass
+        data = self.client.transceive("perform_turn")
+        self.map_panel.move_salesmen(data)
         
     def ExitButtonClicked(self, event):
         print("Exit program")

@@ -31,6 +31,7 @@ class Engine{
   bool RoundFinnished() const;
 
   UnvisitedCities GetCities() const;
+  const std::vector<Salesman> GetSalesmen() const;
 
   const Map& GetMap() const;
  private:

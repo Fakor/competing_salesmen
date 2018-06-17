@@ -51,16 +51,16 @@ int main(int argc, char **argv){
 	    if(len > 0){
                 std::cout << "Content: " << content << std::endl;
 		std::string response;
-		if(content.compare("generate_map") == 0){
+		if(content.find("generate_map") == 0){
 		  engine.GenerateNewMap();
 		  response = JsonMap(engine.GetMap());
-		} else if(content.compare("perform_turn")){
-		  std::cout << "PERFORMING TURN\n";
+		} else if(content.find("perform_turn") == 0){
 		  response = JsonSalesmen(engine.GetSalesmen(), true);
 		}
 		else{
 		  response = content + " is not a know command";
 		}
+		std::cout << "Response: " << response << std::endl;
                 boost::asio::write(socket, boost::asio::buffer(response, response.size()), ignored_error);
 	    }
 

@@ -12,9 +12,11 @@ class MainFrame(wx.Frame):
         self.Center()
 
         self.generate_map_button = wx.Button(self.panel,wx.ID_ANY,"Generate map")
+        self.perform_turn_button = wx.Button(self.panel, wx.ID_ANY,"Perform turn")
         self.exit_button = wx.Button(self.panel, wx.ID_ANY, "EXIT")
 
-        self.generate_map_button.Bind(wx.EVT_BUTTON,self.OnClicked)
+        self.generate_map_button.Bind(wx.EVT_BUTTON,self.GenerateMap)
+        self.perform_turn_button.Bind(wx.EVT_BUTTON,self.PerformTurn)
         self.exit_button.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
         self.map_panel = MapPanel(self.panel, (200,200), (3,3))
@@ -26,6 +28,7 @@ class MainFrame(wx.Frame):
         map_sizer.Add(self.map_panel, 0, wx.ALIGN_TOP|wx.FIXED_MINSIZE)
 
         button_sizer.Add(self.generate_map_button, 0, wx.ALL)
+        button_sizer.Add(self.perform_turn_button, 0, wx.ALL)
         button_sizer.Add(self.exit_button, 0, wx.ALL)
 
         top_sizer.Add(button_sizer, 0, wx.LEFT)
@@ -37,11 +40,14 @@ class MainFrame(wx.Frame):
         self.client=Client()
         self.Show()
 
-    def OnClicked(self, event):
+    def GenerateMap(self, event):
         btn = event.GetEventObject().GetLabel() 
         data = self.client.transceive("generate_map")
         self.map_panel.set_map(data)
 
+    def PerformTurn(self, event):
+        pass
+        
     def ExitButtonClicked(self, event):
         print("Exit program")
         self.Close()

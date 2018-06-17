@@ -11,11 +11,11 @@ class MainFrame(wx.Frame):
         self.SetClientSize((600,400))
         self.Center()
 
-        self.btn = wx.Button(self.panel,wx.ID_ANY,"Generate map")
-        self.exit_btn = wx.Button(self.panel, wx.ID_ANY, "EXIT")
+        self.generate_map_button = wx.Button(self.panel,wx.ID_ANY,"Generate map")
+        self.exit_button = wx.Button(self.panel, wx.ID_ANY, "EXIT")
 
-        self.btn.Bind(wx.EVT_BUTTON,self.OnClicked)
-        self.exit_btn.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
+        self.generate_map_button.Bind(wx.EVT_BUTTON,self.OnClicked)
+        self.exit_button.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
         self.map_panel = MapPanel(self.panel, (200,200), (3,3))
 
@@ -25,8 +25,8 @@ class MainFrame(wx.Frame):
 
         map_sizer.Add(self.map_panel, 0, wx.ALIGN_TOP|wx.FIXED_MINSIZE)
 
-        button_sizer.Add(self.btn, 0, wx.ALL)
-        button_sizer.Add(self.exit_btn, 0, wx.ALL)
+        button_sizer.Add(self.generate_map_button, 0, wx.ALL)
+        button_sizer.Add(self.exit_button, 0, wx.ALL)
 
         top_sizer.Add(button_sizer, 0, wx.LEFT)
         top_sizer.Add(map_sizer, 0, wx.ALIGN_TOP)

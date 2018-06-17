@@ -7,6 +7,7 @@
 #include "log_tools.h"
 #include "json_conversion.h"
 #include "engine.h"
+#include "basic_selectors.h"
 
 using boost::asio::ip::tcp;
 
@@ -55,6 +56,7 @@ int main(int argc, char **argv){
 		  engine.GenerateNewMap();
 		  response = JsonMap(engine.GetMap());
 		} else if(content.find("perform_turn") == 0){
+		  engine.PerformTurn();
 		  response = JsonSalesmen(engine.GetSalesmen(), true);
 		}
 		else{

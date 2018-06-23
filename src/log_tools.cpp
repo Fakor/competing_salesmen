@@ -11,7 +11,7 @@ void print_cities(const UnvisitedCities &cities){
 }
 
 void print_scoreboard(const Scoreboard &scoreboard){
-  for(auto& it: scoreboard){
-    std::cout << it.second << "\n";
+  for(auto it: scoreboard){
+    std::cout << it << "\n";
   }
 }

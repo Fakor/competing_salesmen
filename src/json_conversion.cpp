@@ -41,7 +41,7 @@ std::string JsonSalesmen(const std::vector<Salesman> salesmen, bool with_bracket
 std::string JsonMap(const Map &map){
   std::string ret = "{";
   ret += JsonCities(map.GetCities()) + ", ";
-  ret += JsonSalesmen(map.GetSalesmen());
+  ret += JsonSalesmen(map.GetSalesmenConst());
   ret += "}";
   return ret;
 }

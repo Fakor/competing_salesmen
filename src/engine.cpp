@@ -7,10 +7,21 @@ Engine::Engine(std::unique_ptr<MapGenerator> generator)
   cities_ = map_.GetCities();
 }
 
-void Engine::AddSelector(SelectorType selector, unsigned int salesman_index){
-    selector->SetCities(&cities_);
-    selector->SetSalesman(map_.GetSalesman(salesman_index));
-    selectors_.emplace_back(std::move(selector));
+void Engine::AddSelector(SelectorType selector){
+  selectors_.emplace_back(std::move(selector));
+}
+
+void Engine::Init(){
+  std::vector<Salesman>& salesmen = map_.GetSalesmen();
+  if(selectors_.size() != map_.GetSalesmen().size()){
+    throw "Number of selectors and salesmen mismatch!";
+  }
+  auto selector = selectors_.begin();
+  auto salesman = salesmen.begin();
+  for(; selector != selectors_.end(); ++selector, ++salesman){
+    (*selector)->SetCities(&cities_);
+    (*selector)->SetSalesman(&(*salesman));
+  }
 }
 
 void Engine::VisitCity(const Point* city){
@@ -20,10 +31,6 @@ void Engine::VisitCity(const Point* city){
 
 void Engine::GenerateNewMap(){
   map_ = generator_->GenerateMap();
-}
-
-Salesman& Engine::GetSalesman(int index){
-  return *map_.GetSalesman(index);
 }
 
 void Engine::SelectTargets(){
@@ -38,7 +45,7 @@ void Engine::PerformTurn(){
         double distance = mapped_salesmen_iterator->first;
         mapped_salesmen_iterator->second->MoveToTarget();
         VisitCity(mapped_salesmen_iterator->second->GetTarget());
-	++scoreboard_[mapped_salesmen_iterator->second];
+	mapped_salesmen_iterator->second->AddScore();
         while(++mapped_salesmen_iterator != mapped_salesmen.end()){
             mapped_salesmen_iterator->second->MoveTowardsTarget(distance);
         }
@@ -55,8 +62,12 @@ Salesman* Engine::NextSalesman(){
     return map_.GetSalesman(current_salesman_index++);
 }
 
-Scoreboard& Engine::GetScoreboard(){
-    return scoreboard_;
+Scoreboard Engine::GetScoreboard() const{
+  Scoreboard scoreboard;
+  for(auto& salesman: map_.GetSalesmenConst()){
+    scoreboard.push_back(salesman.GetScore());
+  }
+  return scoreboard;
 }
 
 bool Engine::RoundFinnished() const{
@@ -67,7 +78,7 @@ UnvisitedCities Engine::GetCities() const{
   return map_.GetCities();
 }
 
-const std::vector<Salesman> Engine::GetSalesmen() const{
+std::vector<Salesman>& Engine::GetSalesmen(){
   return map_.GetSalesmen();
 }
 

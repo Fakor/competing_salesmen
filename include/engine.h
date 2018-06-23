@@ -16,7 +16,9 @@ class Engine{
  public:
   Engine(std::unique_ptr<MapGenerator>);
 
-  void AddSelector(SelectorType selector, unsigned int salesman_index);
+  void AddSelector(SelectorType selector);
+
+  void Init();
 
   void SelectTargets();
   void PerformTurn();
@@ -26,12 +28,11 @@ class Engine{
 
   void VisitCity(const Point* city);
 
-  Salesman& GetSalesman(int index);
-  Scoreboard& GetScoreboard();
+  Scoreboard GetScoreboard() const;
   bool RoundFinnished() const;
 
   UnvisitedCities GetCities() const;
-  const std::vector<Salesman> GetSalesmen() const;
+  std::vector<Salesman>& GetSalesmen();
 
   const Map& GetMap() const;
  private:
@@ -44,8 +45,6 @@ class Engine{
   Salesman* NextSalesman();
 
   int current_salesman_index{0};
-
-  Scoreboard scoreboard_;
 };
  
 #endif /* ENGINE_H */

@@ -50,6 +50,10 @@ UnvisitedCities Map::GetCities() const{
   return cities_copy;
 }
 
-const std::vector<Salesman>& Map::GetSalesmen() const{
+std::vector<Salesman>& Map::GetSalesmen(){
+  return salesmen_;
+}
+
+const std::vector<Salesman>& Map::GetSalesmenConst() const{
   return salesmen_;
 }

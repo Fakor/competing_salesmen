@@ -27,7 +27,7 @@ int main(int argc, char **argv){
 
 	tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), PORT));
 
-	std::unique_ptr<RandomGenerator> generator(new RandomGenerator(20,3,2,seed));
+	std::unique_ptr<RandomGenerator> generator(new RandomGenerator(4,3,2,seed));
 	Engine engine(std::move(generator));
 	engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
 	engine.AddSelector(std::unique_ptr<Selector>(new Closest()));

@@ -1,5 +1,7 @@
 import wx
 
+from salesmen_trajectories import SalesmanTrajectory
+
 class MapPanel(wx.Panel):
     def __init__(self, parent, panel_size, map_size):
         wx.Panel.__init__(self, parent)
@@ -12,7 +14,7 @@ class MapPanel(wx.Panel):
         self._map = {}
         self.border = (5,5)
         self.cities = []
-        self.salesmen = []
+        self.salesmen_trajectories = []
         self.map_drawn = False
         self.set_scalers()
 
@@ -32,7 +34,9 @@ class MapPanel(wx.Panel):
     def set_map(self, new_map):
         print(new_map)
         self.cities = new_map.get("cities", [])
-        self.salesmen = new_map.get("salesmen", [])
+        for salesman in new_map.get("salesmen", []):
+            start_position = self.get_position(salesman)
+            self.salesmen_trajectories.append(SalesmanTrajectory(start_position))
         self.map_drawn = False
         self.Refresh()
 
@@ -43,15 +47,13 @@ class MapPanel(wx.Panel):
 
         new_salesmen_positions = data.get("salesmen", [])
         dc.SetPen(wx.Pen(wx.RED, 1))
-        for salesman, new_position in zip(self.salesmen, new_salesmen_positions):
-            last_x, last_y = self.get_salesman_last_position(salesman)
-            self.update_salesman_position(salesman, new_position)
-            dc.DrawLine(last_x, last_y, *new_position)
-            print(salesman, new_position)
-        dc.DrawLine(0,0,100,100)
-
-    def get_salesman_last_position(self, salesman):
-        return salesman[-2], salesman[-1]
+        for salesman, new_position in zip(self.salesmen_trajectories, new_salesmen_positions):
+            last_x, last_y = salesman.last_position()
+            x, y = self.get_position(new_position)
+            
+            print("NEW LINE: ", last_x, last_y, new_position)
+            salesman.new_position(x, y)
+            dc.DrawLine(last_x, last_y, x, y)
 
     def update_salesman_position(self, salesman, new_position):
         salesman.extend(new_position)
@@ -66,10 +68,17 @@ class MapPanel(wx.Panel):
             x, y = self.get_position(city)
             dc.DrawCircle(x, y, 1)
 
-        dc.SetPen(wx.Pen(wx.RED, 4))
-        for salesman in self.salesmen:
-            x, y = self.get_position(salesman)
-            dc.DrawCircle(x, y, 1)
+
+        for salesman in self.salesmen_trajectories:
+            dc.SetPen(wx.Pen(wx.RED, 4))            
+            trajectory = salesman.trajectory
+            last_x, last_y = trajectory[0]
+            dc.DrawCircle(last_x, last_y, 1)
+            dc.SetPen(wx.Pen(wx.RED, 1))
+            for x, y in trajectory[1:]:
+                draw_line(last_x, last_y, x, y)
+                last_x = x
+                last_y = y
 
 
 if __name__ == "__main__":

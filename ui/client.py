@@ -17,6 +17,7 @@ class Client:
             s.send(command.encode())
             data = s.recv(1024)
             data = data.decode("utf-8")
+            print("Data received: ", data)
             data = json.loads(data)
             s.close()
         return data

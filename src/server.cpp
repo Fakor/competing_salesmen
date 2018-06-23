@@ -29,6 +29,8 @@ int main(int argc, char **argv){
 
 	std::unique_ptr<RandomGenerator> generator(new RandomGenerator(20,3,2,seed));
 	Engine engine(std::move(generator));
+	engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
+	engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
 
 	print_cities(engine.GetCities());
 	for (;;)
@@ -51,10 +53,11 @@ int main(int argc, char **argv){
 
 	    if(len > 0){
                 std::cout << "Content: " << content << std::endl;
-		std::string response;
+		std::string response = "";
 		if(content.find("generate_map") == 0){
 		  engine.GenerateNewMap();
 		  response = JsonMap(engine.GetMap());
+
 		} else if(content.find("perform_turn") == 0){
 		  engine.PerformTurn();
 		  response = JsonSalesmen(engine.GetSalesmen(), true);

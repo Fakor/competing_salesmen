@@ -31,6 +31,7 @@ void Engine::VisitCity(const Point* city){
 
 void Engine::GenerateNewMap(){
   map_ = generator_->GenerateMap();
+  Init();
 }
 
 void Engine::SelectTargets(){

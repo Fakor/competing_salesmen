@@ -72,4 +72,12 @@ TEST(EngineTest, PerformRound){
 
   EXPECT_EQ(Scoreboard({2,1}), engine.GetScoreboard());
   EXPECT_TRUE(engine.RoundFinnished());
+
+  engine.GenerateNewMap();
+
+  engine.PerformRound();
+
+  EXPECT_EQ(Scoreboard({2,1}), engine.GetScoreboard());
+  EXPECT_TRUE(engine.RoundFinnished());
+
 }

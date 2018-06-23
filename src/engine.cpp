@@ -31,6 +31,7 @@ void Engine::VisitCity(const Point* city){
 
 void Engine::GenerateNewMap(){
   map_ = generator_->GenerateMap();
+  cities_ = map_.GetCities();
   Init();
 }
 

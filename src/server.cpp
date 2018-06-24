@@ -59,7 +59,7 @@ int main(int argc, char **argv){
 		  response = JsonMap(engine.GetMap());
 
 		} else if(content.find("perform_turn") == 0){
-		  engine.PerformTurn();
+		  engine.PerformTurnSecure();
 		  response = JsonSalesmen(engine.GetSalesmen(), true);
 		}
 		else{

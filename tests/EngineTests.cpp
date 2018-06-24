@@ -81,3 +81,17 @@ TEST(EngineTest, PerformRound){
   EXPECT_TRUE(engine.RoundFinnished());
 
 }
+
+TEST(EngineTest, PerformTurnSecure){
+  std::unique_ptr<CustomGenerator> generator(new CustomGenerator{{{0.0,6.0}, {-3.0,0.0}, {5.0,1.0}}, {{1.0,0.0}, {-8.0,0.0}}});
+
+  Engine engine{std::move(generator)};
+
+  engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
+  engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
+
+  engine.Init();
+  ASSERT_TRUE(engine.PerformTurnSecure());
+  engine.PerformRound();
+  ASSERT_FALSE(engine.PerformTurnSecure());
+}

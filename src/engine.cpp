@@ -54,6 +54,15 @@ void Engine::PerformTurn(){
     }
 }
 
+bool Engine::PerformTurnSecure(){
+  if(!RoundFinnished()){
+    PerformTurn();
+    return true;
+  } else {
+    return false;
+  }
+}
+
 void Engine::PerformRound(){
   while(!RoundFinnished()){
     PerformTurn();

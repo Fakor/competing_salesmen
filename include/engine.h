@@ -22,6 +22,7 @@ class Engine{
 
   void SelectTargets();
   void PerformTurn();
+  bool PerformTurnSecure();
   void PerformRound();
 
   void GenerateNewMap();

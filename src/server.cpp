@@ -5,7 +5,7 @@
 
 #include "random_generator.h"
 #include "log_tools.h"
-#include "json_conversion.h"
+#include "json_commands.h"
 #include "engine.h"
 #include "basic_selectors.h"
 
@@ -56,14 +56,17 @@ int main(int argc, char **argv){
 		std::string response = "";
 		if(content.find("generate_map") == 0){
 		  engine.GenerateNewMap();
-		  response = JsonMap(engine.GetMap());
+		  response = NewMapGeneratedResponse(engine.GetMap());
 
 		} else if(content.find("perform_turn") == 0){
-		  engine.PerformTurnSecure();
-		  response = JsonSalesmen(engine.GetSalesmen(), true);
+		  if(engine.PerformTurnSecure()){
+		    response = TurnPerformedResponse(engine);
+		  }else {
+		    response = NoActionResponse("no turn performed");
+		  }
 		}
 		else{
-		  response = content + " is not a know command";
+		  response = UnknownCommandResponse(content);
 		}
 		std::cout << "Response: " << response << std::endl;
                 boost::asio::write(socket, boost::asio::buffer(response, response.size()), ignored_error);

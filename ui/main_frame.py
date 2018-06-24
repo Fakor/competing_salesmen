@@ -41,17 +41,23 @@ class MainFrame(wx.Frame):
         self.Show()
 
     def GenerateMap(self, event):
-        btn = event.GetEventObject().GetLabel() 
-        data = self.client.transceive("generate_map")
-        self.map_panel.set_map(data)
+        server_response = self.client.transceive("generate_map")
+        self.handle_response(server_response)
 
     def PerformTurn(self, event):
-        data = self.client.transceive("perform_turn")
-        self.map_panel.move_salesmen(data)
+        server_response = self.client.transceive("perform_turn")
+        self.handle_response(server_response)
         
     def ExitButtonClicked(self, event):
         print("Exit program")
         self.Close()
+
+    def handle_response(self, response):
+        for label, data in response.items():
+            if label == "new_map":
+                self.map_panel.set_map(data["map"])
+            elif label == "turn_performed":
+                self.map_panel.move_salesmen(data)
 
 if __name__ == "__main__":
     app = wx.App(False)

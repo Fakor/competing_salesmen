@@ -93,6 +93,10 @@ std::vector<Salesman>& Engine::GetSalesmen(){
   return map_.GetSalesmen();
 }
 
+const std::vector<Salesman>& Engine::GetSalesmenConst() const{
+  return map_.GetSalesmenConst();
+}
+
 const Map& Engine::GetMap() const{
   return map_;
 }

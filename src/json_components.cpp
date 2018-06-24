@@ -1,4 +1,4 @@
-#include "json_conversion.h"
+#include "json_components.h"
 
 std::string JsonCities(const UnvisitedCities &cities){
   std::string ret = "\"cities\": [";
@@ -16,12 +16,8 @@ std::string JsonCities(const UnvisitedCities &cities){
   return ret;
 }
 
-std::string JsonSalesmen(const std::vector<Salesman> salesmen, bool with_brackets){
-  std::string ret{""};
-  if(with_brackets){
-    ret += "{";
-  }
-  ret += "\"salesmen\": [";
+std::string JsonSalesmen(const std::vector<Salesman> salesmen){
+  std::string ret = "\"salesmen\": [";
   bool first = true;
   for(auto& salesman: salesmen){
     if(first){
@@ -32,14 +28,11 @@ std::string JsonSalesmen(const std::vector<Salesman> salesmen, bool with_bracket
     ret  += "[" + std::to_string(salesman.X()) + ", " + std::to_string(salesman.Y()) + "]";
   }
   ret += "]";
-  if(with_brackets){
-    ret += "}";
-  }
   return ret;
 }
 
 std::string JsonMap(const Map &map){
-  std::string ret = "{";
+  std::string ret = "\"map\": {";
   ret += JsonCities(map.GetCities()) + ", ";
   ret += JsonSalesmen(map.GetSalesmenConst());
   ret += "}";

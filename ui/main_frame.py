@@ -57,7 +57,7 @@ class MainFrame(wx.Frame):
             if label == "new_map":
                 self.map_panel.set_map(data["map"])
             elif label == "turn_performed":
-                self.map_panel.move_salesmen(data)
+                self.map_panel.move_salesmen(data["salesmen"])
 
 if __name__ == "__main__":
     app = wx.App(False)

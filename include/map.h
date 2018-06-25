@@ -24,8 +24,10 @@ class Map{
 
   SalesmanDistanceMap MapSalesmanDistance();
   UnvisitedCities GetCities() const;
+  const Cities& GetAllCities() const;
   std::vector<Salesman>& GetSalesmen();
-  const std::vector<Salesman>& GetSalesmenConst() const;
+  const std::vector<Salesman>& GetSalesmen() const;
+  std::vector<Point> GetSalesmanPositions() const;
 
  private:
   Cities cities_;

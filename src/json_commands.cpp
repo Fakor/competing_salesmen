@@ -9,7 +9,7 @@ std::string NewMapGeneratedResponse(const Map& map){
 
 std::string TurnPerformedResponse(const Engine& engine){
   std::string ret = "{\"turn_performed\": {";
-  ret += JsonSalesmen(engine.GetSalesmenConst()) + "}}";
+  ret += JsonPositions("salesmen", engine.GetSalesmanPositions()) + "}}";
 
   return ret;
 }

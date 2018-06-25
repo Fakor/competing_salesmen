@@ -75,7 +75,7 @@ Salesman* Engine::NextSalesman(){
 
 Scoreboard Engine::GetScoreboard() const{
   Scoreboard scoreboard;
-  for(auto& salesman: map_.GetSalesmenConst()){
+  for(auto& salesman: map_.GetSalesmen()){
     scoreboard.push_back(salesman.GetScore());
   }
   return scoreboard;
@@ -93,8 +93,8 @@ std::vector<Salesman>& Engine::GetSalesmen(){
   return map_.GetSalesmen();
 }
 
-const std::vector<Salesman>& Engine::GetSalesmenConst() const{
-  return map_.GetSalesmenConst();
+std::vector<Point> Engine::GetSalesmanPositions() const{
+  return map_.GetSalesmanPositions();
 }
 
 const Map& Engine::GetMap() const{

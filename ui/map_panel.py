@@ -45,9 +45,8 @@ class MapPanel(wx.Panel):
         brush = wx.brush = wx.Brush("blue")
         dc.SetBackground(brush)
 
-        new_salesmen_positions = data.get("salesmen", [])
         dc.SetPen(wx.Pen(wx.RED, 1))
-        for salesman, new_position in zip(self.salesmen_trajectories, new_salesmen_positions):
+        for salesman, new_position in zip(self.salesmen_trajectories, data):
             last_x, last_y = salesman.last_position()
             x, y = self.get_position(new_position)
             

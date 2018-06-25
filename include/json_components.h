@@ -7,8 +7,7 @@
 #include "utility.h"
 #include "map.h"
 
-std::string JsonCities(const UnvisitedCities &cities);
-std::string JsonSalesmen(const std::vector<Salesman> salesmen);
+std::string JsonPositions(std::string label, const std::vector<Point> positions);
 std::string JsonMap(const Map &map);
 
 

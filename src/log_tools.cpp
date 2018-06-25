@@ -1,7 +1,7 @@
 #include "log_tools.h"
 
 void print_city(const City &city){
-  std::cout << "City location: (" << city.X() << ", " << city.Y() << ")\n";
+  std::cout << "City location: (" << city.GetX() << ", " << city.GetY() << ")\n";
 }
 
 void print_cities(const UnvisitedCities &cities){

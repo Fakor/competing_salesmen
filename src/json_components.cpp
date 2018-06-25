@@ -1,31 +1,15 @@
 #include "json_components.h"
 
-std::string JsonCities(const UnvisitedCities &cities){
-  std::string ret = "\"cities\": [";
+std::string JsonPositions(std::string label, const std::vector<Point> positions){
+  std::string ret = "\"" + label + "\": [";
   bool first = true;
-  for(auto& city: cities){
-    if(first){
-      first = false;
-    }
-    else{
-      ret += ",";
-    }
-    ret += "[" + std::to_string(city->X()) + ", " + std::to_string(city->Y()) + "]";
-  }
-  ret += "]";
-  return ret;
-}
-
-std::string JsonSalesmen(const std::vector<Salesman> salesmen){
-  std::string ret = "\"salesmen\": [";
-  bool first = true;
-  for(auto& salesman: salesmen){
+  for(auto& position: positions){
     if(first){
       first = false;
     } else{
       ret += ",";
     }
-    ret  += "[" + std::to_string(salesman.X()) + ", " + std::to_string(salesman.Y()) + "]";
+    ret  += "[" + std::to_string(position.GetX()) + ", " + std::to_string(position.GetY()) + "]";
   }
   ret += "]";
   return ret;
@@ -33,8 +17,8 @@ std::string JsonSalesmen(const std::vector<Salesman> salesmen){
 
 std::string JsonMap(const Map &map){
   std::string ret = "\"map\": {";
-  ret += JsonCities(map.GetCities()) + ", ";
-  ret += JsonSalesmen(map.GetSalesmenConst());
+  ret += JsonPositions("cities", map.GetAllCities()) + ", ";
+  ret += JsonPositions("salesmen", map.GetSalesmanPositions());
   ret += "}";
   return ret;
 }

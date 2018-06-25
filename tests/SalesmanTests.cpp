@@ -11,7 +11,7 @@ TEST(SalesmanTest, testMoveTowardsTarget) {
     salesman.SetTarget(&target);
     salesman.MoveTowardsTarget(2.5);
 
-    testPoint(salesman, {2.5, 4});
+    testPoint({2.5, 4}, salesman);
 }
 
 TEST(SalesmanTest, testDistanceToTarget) {

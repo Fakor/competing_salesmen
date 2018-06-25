@@ -1,7 +1,7 @@
 #include "salesman.h"
 
 Salesman::Salesman(double init_x, double init_y)
-  : Point{init_x, init_y}
+  : position_{init_x, init_y}
 {}
 
 void Salesman::SetTarget(const Point *target){
@@ -10,16 +10,13 @@ void Salesman::SetTarget(const Point *target){
 
 void Salesman::MoveToTarget(){
   if(target_ != nullptr){
-    x = target_->X();
-    y = target_->Y();
+    position_.MoveTo(*target_);
   }
 }
 
 void Salesman::MoveTowardsTarget(double distance){
   if(target_ != nullptr){
-    Point direction = DirectionTo(*target_);
-    x += direction.X() * distance;
-    y += direction.Y() * distance;
+    position_.MoveTowards(*target_, distance);
   }
 }
 
@@ -30,8 +27,16 @@ std::optional<double> Salesman::DistanceToTarget() const{
   return std::nullopt;
 }
 
+double Salesman::DistanceTo(const Point& other_point) const{
+  return position_.DistanceTo(other_point);
+}
+
 const Point* Salesman::GetTarget() const{
   return target_;
+}
+
+Point Salesman::GetPosition() const{
+  return position_;
 }
 
 void Salesman::AddScore(){

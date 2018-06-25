@@ -4,12 +4,23 @@ Point::Point(double x_init, double y_init)
 : x{x_init}, y{y_init}
 {}
 
-double Point::X() const {
+double Point::GetX() const {
     return x;
 }
 
-double Point::Y() const {
+double Point::GetY() const {
     return y;
+}
+
+void Point::MoveTo(const Point& target){
+  x = target.GetX();
+  y = target.GetY();
+}
+
+void Point::MoveTowards(const Point& target, double distance){
+  Point direction = DirectionTo(target);
+  x += direction.GetX() * distance;
+  y += direction.GetY() * distance;
 }
 
 double Point::DistanceTo(const Point& target) const{

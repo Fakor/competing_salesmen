@@ -34,7 +34,7 @@ class Engine{
 
   UnvisitedCities GetCities() const;
   std::vector<Salesman>& GetSalesmen();
-  const std::vector<Salesman>& GetSalesmenConst() const;
+  std::vector<Point> GetSalesmanPositions() const;
 
   const Map& GetMap() const;
  private:

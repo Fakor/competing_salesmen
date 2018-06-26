@@ -22,3 +22,18 @@ std::string JsonMap(const Map &map){
   ret += "}";
   return ret;
 }
+
+std::string JsonScoreboard(const Scoreboard &scoreboard){
+  std::string ret = "\"score\": [";
+  bool first = true;
+  for(auto score: scoreboard){
+    if(first){
+      first = false;
+    } else{
+      ret += ",";
+    }
+    ret += std::to_string(score);
+  }
+  ret += "]";
+  return ret;
+}

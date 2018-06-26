@@ -6,9 +6,11 @@
 #include "point.h"
 #include "utility.h"
 #include "map.h"
+#include "engine.h"
 
 std::string JsonPositions(std::string label, const std::vector<Point> positions);
 std::string JsonMap(const Map &map);
+std::string JsonScoreboard(const Scoreboard &scoreboard);
 
 
 #endif

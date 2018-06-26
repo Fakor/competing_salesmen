@@ -2,6 +2,7 @@ import wx
 
 from client import Client
 from map_panel import MapPanel
+from status_display import StatusDisplay
 
 class MainFrame(wx.Frame):
     def __init__(self):
@@ -20,12 +21,15 @@ class MainFrame(wx.Frame):
         self.exit_button.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
         self.map_panel = MapPanel(self.panel, (200,200), (3,3))
+        self.status_display = StatusDisplay(self.panel, (50,100), 2)
 
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         button_sizer = wx.BoxSizer(wx.VERTICAL)
         map_sizer = wx.BoxSizer(wx.VERTICAL)
+        status_display_sizer = wx.BoxSizer(wx.VERTICAL)
 
         map_sizer.Add(self.map_panel, 0, wx.ALIGN_TOP|wx.FIXED_MINSIZE)
+        status_display_sizer.Add(self.status_display, 0, wx.ALL)
 
         button_sizer.Add(self.generate_map_button, 0, wx.ALL)
         button_sizer.Add(self.perform_turn_button, 0, wx.ALL)
@@ -33,6 +37,7 @@ class MainFrame(wx.Frame):
 
         top_sizer.Add(button_sizer, 0, wx.LEFT)
         top_sizer.Add(map_sizer, 0, wx.ALIGN_TOP)
+        top_sizer.Add(status_display_sizer, 0, wx.CENTRE)
 
         self.panel.SetSizer(top_sizer)
         top_sizer.Fit(self)
@@ -58,6 +63,7 @@ class MainFrame(wx.Frame):
                 self.map_panel.set_map(data["map"])
             elif label == "turn_performed":
                 self.map_panel.move_salesmen(data["salesmen"])
+                self.status_display.new_score(data["score"])
 
 if __name__ == "__main__":
     app = wx.App(False)

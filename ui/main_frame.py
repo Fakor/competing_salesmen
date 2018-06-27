@@ -3,6 +3,7 @@ import wx
 from client import Client
 from map_panel import MapPanel
 from status_display import StatusDisplay
+from salesman import Salesman
 
 class MainFrame(wx.Frame):
     def __init__(self):
@@ -12,6 +13,8 @@ class MainFrame(wx.Frame):
         self.SetClientSize((600,400))
         self.Center()
 
+        self.salesmen = []
+
         self.generate_map_button = wx.Button(self.panel,wx.ID_ANY,"Generate map")
         self.perform_turn_button = wx.Button(self.panel, wx.ID_ANY,"Perform turn")
         self.exit_button = wx.Button(self.panel, wx.ID_ANY, "EXIT")
@@ -20,8 +23,8 @@ class MainFrame(wx.Frame):
         self.perform_turn_button.Bind(wx.EVT_BUTTON,self.PerformTurn)
         self.exit_button.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
-        self.map_panel = MapPanel(self.panel, (200,200), (3,3))
-        self.status_display = StatusDisplay(self.panel, (50,100), 2)
+        self.map_panel = MapPanel(self.panel, (200,200), (3,3), self.salesmen)
+        self.status_display = StatusDisplay(self.panel, (50,100), [])
 
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         button_sizer = wx.BoxSizer(wx.VERTICAL)
@@ -57,13 +60,27 @@ class MainFrame(wx.Frame):
         print("Exit program")
         self.Close()
 
+    def InitSalesmen(self, salesmen):
+        self.salesmen = []
+        for salesman in salesmen:
+            self.salesmen.append(Salesman([salesman["x"], salesman["y"]]))
+        self.map_panel.salesmen = self.salesmen
+
+    def UpdateSalesmen(self, data):
+        for salesman, salesman_data in zip(self.salesmen, data):
+            salesman.new_position(salesman_data["x"], salesman_data["y"])
+            salesman.score = salesman_data["score"]
+
     def handle_response(self, response):
         for label, data in response.items():
             if label == "new_map":
+                self.InitSalesmen(data["map"]["salesmen"])
+                self.status_display.setup_scoreboard(self.salesmen)
                 self.map_panel.set_map(data["map"])
             elif label == "turn_performed":
-                self.map_panel.move_salesmen(data["salesmen"])
-                self.status_display.new_score(data["score"])
+                self.UpdateSalesmen(data["salesmen"])
+                self.map_panel.Refresh()
+                self.status_display.update_score()
 
 if __name__ == "__main__":
     app = wx.App(False)

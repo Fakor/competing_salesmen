@@ -10,6 +10,8 @@
 
 std::string JsonPositions(std::string label, const std::vector<Point> positions);
 std::string JsonMap(const Map &map);
+std::string JsonSalesmen(const std::vector<Salesman> &salesmen);
+std::string JsonSalesman(const Salesman& salesman);
 std::string JsonScoreboard(const Scoreboard &scoreboard);
 
 

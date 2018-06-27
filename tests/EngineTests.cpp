@@ -31,9 +31,9 @@ TEST(EngineTest, PerformTurn){
 
   engine.Init();
 
-  std::vector<Salesman>& salesmen = engine.GetSalesmen();
-  Salesman& salesman1 = salesmen.at(0);
-  Salesman& salesman2 = salesmen.at(1);
+  const std::vector<Salesman>& salesmen = engine.GetSalesmen();
+  const Salesman& salesman1 = salesmen.at(0);
+  const Salesman& salesman2 = salesmen.at(1);
 
   engine.PerformTurn();
   EXPECT_FALSE(engine.RoundFinnished());

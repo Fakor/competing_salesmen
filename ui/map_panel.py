@@ -1,9 +1,7 @@
 import wx
 
-from salesman import Salesman
-
 class MapPanel(wx.Panel):
-    def __init__(self, parent, panel_size, map_size):
+    def __init__(self, parent, panel_size, map_size, salesmen):
         wx.Panel.__init__(self, parent)
         self.SetClientSize(panel_size)
         self.w, self.h = self.GetClientSize()
@@ -14,7 +12,7 @@ class MapPanel(wx.Panel):
         self._map = {}
         self.border = (5,5)
         self.cities = []
-        self.salesmen = []
+        self.salesmen = salesmen
         self.map_drawn = False
         self.set_scalers()
 
@@ -33,24 +31,8 @@ class MapPanel(wx.Panel):
         
     def set_map(self, new_map):
         self.cities = new_map.get("cities", [])
-        self.salesmen = []
-        for salesman in new_map.get("salesmen", []):
-            start_position = self.get_position(salesman)
-            self.salesmen.append(Salesman(start_position))
         self.map_drawn = False
         self.Refresh()
-
-    def move_salesmen(self, data):
-        dc = wx.ClientDC(self)
-        brush = wx.brush = wx.Brush("blue")
-        dc.SetBackground(brush)
-
-        dc.SetPen(wx.Pen(wx.RED, 1))
-        for salesman, new_position in zip(self.salesmen, data):
-            last_x, last_y = salesman.last_position()
-            x, y = self.get_position(new_position)
-            salesman.new_position(x, y)
-            dc.DrawLine(last_x, last_y, x, y)
 
     def print_map(self, event):
         dc = wx.PaintDC(self)
@@ -66,11 +48,12 @@ class MapPanel(wx.Panel):
         for salesman in self.salesmen:
             dc.SetPen(wx.Pen(wx.RED, 4))            
             trajectory = salesman.trajectory
-            last_x, last_y = trajectory[0]
+            last_x, last_y = self.get_position(trajectory[0])
             dc.DrawCircle(last_x, last_y, 1)
             dc.SetPen(wx.Pen(wx.RED, 1))
-            for x, y in trajectory[1:]:
-                draw_line(last_x, last_y, x, y)
+            for org_x, org_y in trajectory[1:]:
+                x, y = self.get_position([org_x, org_y])
+                dc.DrawLine(last_x, last_y, x, y)
                 last_x = x
                 last_y = y
 

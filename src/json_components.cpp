@@ -17,9 +17,32 @@ std::string JsonPositions(std::string label, const std::vector<Point> positions)
 
 std::string JsonMap(const Map &map){
   std::string ret = "\"map\": {";
-  ret += JsonPositions("cities", map.GetAllCities()) + ", ";
-  ret += JsonPositions("salesmen", map.GetSalesmanPositions());
+  ret += JsonPositions("cities", map.GetAllCities());
+  ret += ", " + JsonSalesmen(map.GetSalesmen());
   ret += "}";
+  return ret;
+}
+
+std::string JsonSalesmen(const std::vector<Salesman> &salesmen){
+  std::string ret = "\"salesmen\": [";
+  bool first = true;
+
+  for(auto& salesman: salesmen){
+    if(first){
+      first = false;
+    } else {
+      ret += ",";
+    }
+    ret += "{" + JsonSalesman(salesman) + "}";
+  }
+  ret += "]";
+  return ret;
+}
+
+std::string JsonSalesman(const Salesman& salesman){
+  std::string ret = "\"x\": " + std::to_string(salesman.GetPosition().GetX());
+  ret += ",\"y\": " + std::to_string(salesman.GetPosition().GetY());
+  ret += ",\"score\": " + std::to_string(salesman.GetScore());
   return ret;
 }
 

@@ -89,7 +89,7 @@ UnvisitedCities Engine::GetCities() const{
   return map_.GetCities();
 }
 
-std::vector<Salesman>& Engine::GetSalesmen(){
+const std::vector<Salesman>& Engine::GetSalesmen() const{
   return map_.GetSalesmen();
 }
 

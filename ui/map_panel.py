@@ -1,6 +1,6 @@
 import wx
 
-from salesmen_trajectories import SalesmanTrajectory
+from salesman import Salesman
 
 class MapPanel(wx.Panel):
     def __init__(self, parent, panel_size, map_size):
@@ -14,7 +14,7 @@ class MapPanel(wx.Panel):
         self._map = {}
         self.border = (5,5)
         self.cities = []
-        self.salesmen_trajectories = []
+        self.salesmen = []
         self.map_drawn = False
         self.set_scalers()
 
@@ -32,11 +32,11 @@ class MapPanel(wx.Panel):
         event.Skip()
         
     def set_map(self, new_map):
-        print(new_map)
         self.cities = new_map.get("cities", [])
+        self.salesmen = []
         for salesman in new_map.get("salesmen", []):
             start_position = self.get_position(salesman)
-            self.salesmen_trajectories.append(SalesmanTrajectory(start_position))
+            self.salesmen.append(Salesman(start_position))
         self.map_drawn = False
         self.Refresh()
 
@@ -46,16 +46,11 @@ class MapPanel(wx.Panel):
         dc.SetBackground(brush)
 
         dc.SetPen(wx.Pen(wx.RED, 1))
-        for salesman, new_position in zip(self.salesmen_trajectories, data):
+        for salesman, new_position in zip(self.salesmen, data):
             last_x, last_y = salesman.last_position()
             x, y = self.get_position(new_position)
-            
-            print("NEW LINE: ", last_x, last_y, new_position)
             salesman.new_position(x, y)
             dc.DrawLine(last_x, last_y, x, y)
-
-    def update_salesman_position(self, salesman, new_position):
-        salesman.extend(new_position)
 
     def print_map(self, event):
         dc = wx.PaintDC(self)
@@ -68,7 +63,7 @@ class MapPanel(wx.Panel):
             dc.DrawCircle(x, y, 1)
 
 
-        for salesman in self.salesmen_trajectories:
+        for salesman in self.salesmen:
             dc.SetPen(wx.Pen(wx.RED, 4))            
             trajectory = salesman.trajectory
             last_x, last_y = trajectory[0]

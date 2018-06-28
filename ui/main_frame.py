@@ -18,7 +18,7 @@ class MainFrame(wx.Frame):
         self.panel = wx.Panel(self, id=wx.ID_ANY)
 
         self.colors = colors
-        self.SetClientSize((600,400))
+        self.SetClientSize((700,500))
         self.Center()
 
         self.salesmen = []
@@ -32,7 +32,7 @@ class MainFrame(wx.Frame):
         self.exit_button.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
         self.map_panel = MapPanel(self.panel, (200,200), (3,3), self.salesmen)
-        self.status_display = StatusDisplay(self.panel, (50,100), [])
+        self.status_display = StatusDisplay(self.panel, (20,200), [])
 
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         button_sizer = wx.BoxSizer(wx.VERTICAL)

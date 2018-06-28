@@ -79,8 +79,7 @@ class MainFrame(wx.Frame):
 
     def UpdateSalesmen(self, data):
         for salesman, salesman_data in zip(self.salesmen, data):
-            salesman.new_position(salesman_data["x"], salesman_data["y"])
-            salesman.score = salesman_data["score"]
+            salesman.update_status(salesman_data["x"], salesman_data["y"], salesman_data["score"])
 
     def handle_response(self, response):
         for label, data in response.items():

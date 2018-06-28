@@ -1,15 +1,23 @@
 import wx
 
+from wx.lib.colourdb import getColourList
+
 from client import Client
 from map_panel import MapPanel
 from status_display import StatusDisplay
 from salesman import Salesman
+
+colors = [
+    wx.RED,
+    wx.GREEN
+]
 
 class MainFrame(wx.Frame):
     def __init__(self):
         wx.Frame.__init__(self, None)
         self.panel = wx.Panel(self, id=wx.ID_ANY)
 
+        self.colors = colors
         self.SetClientSize((600,400))
         self.Center()
 
@@ -62,8 +70,11 @@ class MainFrame(wx.Frame):
 
     def InitSalesmen(self, salesmen):
         self.salesmen = []
+        index = 0
         for salesman in salesmen:
-            self.salesmen.append(Salesman([salesman["x"], salesman["y"]]))
+            self.salesmen.append(Salesman([salesman["x"], salesman["y"]], self.colors[index]))
+            index = index + 1
+
         self.map_panel.salesmen = self.salesmen
 
     def UpdateSalesmen(self, data):

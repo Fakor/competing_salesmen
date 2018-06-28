@@ -43,14 +43,12 @@ class MapPanel(wx.Panel):
         for city in self.cities:
             x, y = self.get_position(city)
             dc.DrawCircle(x, y, 1)
-
-
         for salesman in self.salesmen:
-            dc.SetPen(wx.Pen(wx.RED, 4))            
+            dc.SetPen(wx.Pen(salesman.color, 4))
             trajectory = salesman.trajectory
             last_x, last_y = self.get_position(trajectory[0])
             dc.DrawCircle(last_x, last_y, 1)
-            dc.SetPen(wx.Pen(wx.RED, 1))
+            dc.SetPen(wx.Pen(salesman.color, 1))
             for org_x, org_y in trajectory[1:]:
                 x, y = self.get_position([org_x, org_y])
                 dc.DrawLine(last_x, last_y, x, y)

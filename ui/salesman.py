@@ -1,9 +1,10 @@
 
 
 class Salesman:
-    def __init__(self, start_position, score=0):
+    def __init__(self, start_position, color, score=0):
         self.trajectory = [start_position]
         self.score = score
+        self.color = color
 
     def last_position(self):
         return self.trajectory[-1]

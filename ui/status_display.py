@@ -31,6 +31,7 @@ class StatusDisplay(wx.Panel):
         for salesman in self.salesmen:
             text = wx.StaticText(self, label=str(0), size=(50,50))
             text.SetFont(wx.Font(24, wx.NORMAL, wx.NORMAL, wx.BOLD))
+            text.SetForegroundColour(salesman.color)
             self.scoreboard.append(text)
             self.score_sizer.Add(text, salesman.score, wx.ALL, 5)
         self.SetSizer(self.top_sizer)

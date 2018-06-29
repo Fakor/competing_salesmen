@@ -6,6 +6,7 @@ from client import Client
 from map_panel import MapPanel
 from status_display import StatusDisplay
 from salesman import Salesman
+from map_generator_settings import MapGeneratorSettings
 
 colors = [
     wx.RED,
@@ -21,14 +22,18 @@ class MainFrame(wx.Frame):
         self.SetClientSize((700,500))
         self.Center()
 
+        self.map_generator_settings_frame = MapGeneratorSettings(self)
+
         self.salesmen = []
 
         self.generate_map_button = wx.Button(self.panel,wx.ID_ANY,"Generate map")
         self.perform_turn_button = wx.Button(self.panel, wx.ID_ANY,"Perform turn")
+        self.map_generator_settings_button = wx.Button(self.panel,wx.ID_ANY,"Map settings")
         self.exit_button = wx.Button(self.panel, wx.ID_ANY, "EXIT")
 
         self.generate_map_button.Bind(wx.EVT_BUTTON,self.GenerateMap)
         self.perform_turn_button.Bind(wx.EVT_BUTTON,self.PerformTurn)
+        self.map_generator_settings_button.Bind(wx.EVT_BUTTON,self.MapGeneratorSettings)
         self.exit_button.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
         self.map_panel = MapPanel(self.panel, (200,200), (3,3), self.salesmen)
@@ -44,6 +49,7 @@ class MainFrame(wx.Frame):
 
         button_sizer.Add(self.generate_map_button, 0, wx.ALL)
         button_sizer.Add(self.perform_turn_button, 0, wx.ALL)
+        button_sizer.Add(self.map_generator_settings_button, 0, wx.ALL)
         button_sizer.Add(self.exit_button, 0, wx.ALL)
 
         top_sizer.Add(button_sizer, 0, wx.LEFT)
@@ -63,6 +69,9 @@ class MainFrame(wx.Frame):
     def PerformTurn(self, event):
         server_response = self.client.transceive("perform_turn")
         self.handle_response(server_response)
+
+    def MapGeneratorSettings(self, event):
+        self.map_generator_settings_frame.Show()
         
     def ExitButtonClicked(self, event):
         print("Exit program")

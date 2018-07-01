@@ -63,11 +63,16 @@ class MainFrame(wx.Frame):
         self.Show()
 
     def GenerateMap(self, event):
-        server_response = self.client.transceive("generate_map")
+        command = []
+        if not self.map_generator_settings_frame.settings_used:
+            self.map_generator_settings_frame.settings_used = True
+            command.append(map_generator_settings_frame.get_settings_command)
+        command.append({"generate_map": {}})
+        server_response = self.client.transceive(command)
         self.handle_response(server_response)
 
     def PerformTurn(self, event):
-        server_response = self.client.transceive("perform_turn")
+        server_response = self.client.transceive([{"perform_turn":{}}])
         self.handle_response(server_response)
 
     def MapGeneratorSettings(self, event):

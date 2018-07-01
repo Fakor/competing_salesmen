@@ -5,9 +5,9 @@
 
 #include "random_generator.h"
 #include "log_tools.h"
-#include "json_commands.h"
 #include "engine.h"
 #include "basic_selectors.h"
+#include "request_handler.h"
 
 using boost::asio::ip::tcp;
 
@@ -49,25 +49,11 @@ int main(int argc, char **argv){
             boost::system::error_code error_code;
             std::vector<char> buf(65536);
             int len = socket.read_some(boost::asio::buffer(buf), error_code);
-            std::string content(buf.begin(), buf.end());
+            std::string request(buf.begin(), buf.end());
 
 	    if(len > 0){
-                std::cout << "Content: " << content << std::endl;
-		std::string response = "";
-		if(content.find("generate_map") == 0){
-		  engine.GenerateNewMap();
-		  response = NewMapGeneratedResponse(engine.GetMap());
-
-		} else if(content.find("perform_turn") == 0){
-		  if(engine.PerformTurnSecure()){
-		    response = TurnPerformedResponse(engine);
-		  }else {
-		    response = NoActionResponse("no turn performed");
-		  }
-		}
-		else{
-		  response = UnknownCommandResponse(content);
-		}
+                std::cout << "Request: " << request << std::endl;
+		std::string response = handle_request(request, engine);
 		std::cout << "Response: " << response << std::endl;
                 boost::asio::write(socket, boost::asio::buffer(response, response.size()), ignored_error);
 	    }

@@ -9,7 +9,8 @@ log_tools.o \
 custom_generator.o \
 random_generator.o \
 json_components.o \
-json_commands.o
+json_commands.o \
+request_handler.o
 endef
 
 SRC_OBJECTS=$(addprefix $(SRC_OBJ_FOLDER)/, $(SRC_OBJECTS_))

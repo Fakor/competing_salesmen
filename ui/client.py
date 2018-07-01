@@ -12,6 +12,8 @@ class Client:
         self.port=port
 
     def transceive(self, command):
+        command = json.dumps(command)
+        print(command)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.port))
             s.send(command.encode())

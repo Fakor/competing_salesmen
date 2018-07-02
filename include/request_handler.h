@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 
 #include "engine.h"
+#include "map_generator_factory.h"
 #include "json_commands.h"
 
 using json = nlohmann::json;

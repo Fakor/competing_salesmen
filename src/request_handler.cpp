@@ -16,6 +16,7 @@ std::string handle_request(std::string request, Engine& engine){
       }
     }
     else if(auto found_element = element.find("map_generator_settings"); found_element != element.end()){
+      engine.SetMapGenerator(map_generator_factory(*found_element));
       response.push_back(NoActionResponse("new settings for map generator"));
     } else {
       response["unknown_command"] = element;

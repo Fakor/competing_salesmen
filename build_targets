@@ -10,7 +10,8 @@ custom_generator.o \
 random_generator.o \
 json_components.o \
 json_commands.o \
-request_handler.o
+request_handler.o \
+map_generator_factory.o
 endef
 
 SRC_OBJECTS=$(addprefix $(SRC_OBJ_FOLDER)/, $(SRC_OBJECTS_))

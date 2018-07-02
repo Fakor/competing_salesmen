@@ -29,6 +29,10 @@ void Engine::VisitCity(const Point* city){
     cities_.erase(city_it);
 }
 
+void Engine::SetMapGenerator(std::unique_ptr<MapGenerator> generator){
+  generator_ = std::move(generator);
+}
+
 void Engine::GenerateNewMap(){
   map_ = generator_->GenerateMap();
   cities_ = map_.GetCities();

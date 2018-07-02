@@ -35,7 +35,7 @@ class MapGeneratorSettings(wx.Frame):
         top_sizer.Fit(self)
 
     def save(self, event):
-        self.seed = self.seed_edit.GetLineText(0)
+        self.settings["seed"] = int(self.seed_edit.GetValue())
         self.settings_used = False
 
     def when_closed(self, event):

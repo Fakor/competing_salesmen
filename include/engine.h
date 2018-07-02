@@ -25,6 +25,7 @@ class Engine{
   bool PerformTurnSecure();
   void PerformRound();
 
+  void SetMapGenerator(std::unique_ptr<MapGenerator> generator);
   void GenerateNewMap();
 
   void VisitCity(const Point* city);

@@ -17,5 +17,4 @@ json TurnPerformedResponse(const Engine& engine);
 json NoActionResponse(std::string message);
 json UnknownCommandResponse(std::string command);
 
-
 #endif

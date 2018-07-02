@@ -3,15 +3,19 @@
 
 #include <string>
 
+#include <nlohmann/json.hpp>
+
 #include "json_components.h"
 
 #include "map.h"
 #include "engine.h"
 
-std::string NewMapGeneratedResponse(const Map& map);
-std::string TurnPerformedResponse(const Engine& engine);
-std::string NoActionResponse(std::string message);
-std::string UnknownCommandResponse(std::string command);
+using json = nlohmann::json;
+
+json NewMapGeneratedResponse(const Map& map);
+json TurnPerformedResponse(const Engine& engine);
+json NoActionResponse(std::string message);
+json UnknownCommandResponse(std::string command);
 
 
 #endif

@@ -2,28 +2,25 @@
 
 std::string handle_request(std::string request, Engine& engine){
   auto request_json = json::parse(request);
-  std::string response = "";
+  json response;
   for(auto& element: request_json){
-    std::string part_response = "";
     if(auto found_element = element.find("generate_map"); found_element != element.end()){
       engine.GenerateNewMap();
-      part_response += NewMapGeneratedResponse(engine.GetMap());
+      response.push_back(NewMapGeneratedResponse(engine.GetMap()));
     }
-    if(auto found_element = element.find("perform_turn"); found_element != element.end()){
+    else if(auto found_element = element.find("perform_turn"); found_element != element.end()){
       if(engine.PerformTurnSecure()){
-	part_response +=TurnPerformedResponse(engine);
+	response.push_back(TurnPerformedResponse(engine));
       } else{
-	part_response += NoActionResponse("no turn performed, round already finnished");
+	response.push_back(NoActionResponse("no turn performed, round already finnished"));
       }
     }
-
-    
-    if(part_response == ""){
-      response += "{\"unknown_command\": " + element.dump() + "}";
-    }else{
-      response += part_response;
+    else if(auto found_element = element.find("map_generator_settings"); found_element != element.end()){
+      response.push_back(NoActionResponse("new settings for map generator"));
+    } else {
+      response["unknown_command"] = element;
     }
   }
 
-  return response;
+  return response.dump();
 }

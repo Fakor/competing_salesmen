@@ -66,7 +66,7 @@ class MainFrame(wx.Frame):
         command = []
         if not self.map_generator_settings_frame.settings_used:
             self.map_generator_settings_frame.settings_used = True
-            command.append(map_generator_settings_frame.get_settings_command)
+            command.append(self.map_generator_settings_frame.get_settings_command())
         command.append({"generate_map": {}})
         server_response = self.client.transceive(command)
         self.handle_response(server_response)
@@ -86,25 +86,28 @@ class MainFrame(wx.Frame):
         self.salesmen = []
         index = 0
         for salesman in salesmen:
-            self.salesmen.append(Salesman([salesman["x"], salesman["y"]], self.colors[index]))
+            self.salesmen.append(Salesman(salesman["position"], self.colors[index]))
             index = index + 1
 
         self.map_panel.salesmen = self.salesmen
 
     def UpdateSalesmen(self, data):
         for salesman, salesman_data in zip(self.salesmen, data):
-            salesman.update_status(salesman_data["x"], salesman_data["y"], salesman_data["score"])
+            salesman.update_status(salesman_data["position"], salesman_data["score"])
 
     def handle_response(self, response):
-        for label, data in response.items():
-            if label == "new_map":
-                self.InitSalesmen(data["map"]["salesmen"])
-                self.status_display.setup_scoreboard(self.salesmen)
-                self.map_panel.set_map(data["map"])
-            elif label == "turn_performed":
-                self.UpdateSalesmen(data["salesmen"])
-                self.map_panel.Refresh()
-                self.status_display.update_score()
+        for data in response:
+            if len(data) != 1:
+                raise ValueError("Data contains more then one element {}".format(data))
+            for key, values in data.items():
+                if key == "new_map":
+                    self.InitSalesmen(values["salesmen"])
+                    self.status_display.setup_scoreboard(self.salesmen)
+                    self.map_panel.set_map(values)
+                elif key == "turn_performed":
+                    self.UpdateSalesmen(values)
+                    self.map_panel.Refresh()
+                    self.status_display.update_score()
 
 if __name__ == "__main__":
     app = wx.App(False)

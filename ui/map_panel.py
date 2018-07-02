@@ -9,7 +9,6 @@ class MapPanel(wx.Panel):
         self.SetBackgroundStyle(wx.BG_STYLE_CUSTOM)
         self.Bind(wx.EVT_SIZE, self.on_size)
         self.Bind(wx.EVT_PAINT, self.print_map)
-        self._map = {}
         self.border = (5,5)
         self.cities = []
         self.salesmen = salesmen

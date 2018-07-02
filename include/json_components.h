@@ -3,16 +3,22 @@
 
 #include <string>
 
+#include <nlohmann/json.hpp>
+
 #include "point.h"
 #include "utility.h"
 #include "map.h"
 #include "engine.h"
 
-std::string JsonPositions(std::string label, const std::vector<Point> positions);
-std::string JsonMap(const Map &map);
-std::string JsonSalesmen(const std::vector<Salesman> &salesmen);
-std::string JsonSalesman(const Salesman& salesman);
-std::string JsonScoreboard(const Scoreboard &scoreboard);
+using json = nlohmann::json;
 
+void to_json(json& j, const Map& map);
+void from_json(const json& j, Map& map);
+
+void to_json(json& j, const Point& point);
+void from_json(const json& j, Point& point);
+
+void to_json(json& j, const Salesman& salesman);
+void from_json(const json& j, Salesman& salesman);
 
 #endif

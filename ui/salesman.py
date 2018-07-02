@@ -9,6 +9,6 @@ class Salesman:
     def last_position(self):
         return self.trajectory[-1]
 
-    def update_status(self, x, y, score):
-        self.trajectory.append([x, y, score != self.score])
+    def update_status(self, new_position, score):
+        self.trajectory.append([*new_position, score != self.score])
         self.score = score

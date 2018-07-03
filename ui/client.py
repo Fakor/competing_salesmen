@@ -17,7 +17,7 @@ class Client:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.port))
             s.send(command.encode())
-            data = s.recv(1024)
+            data = s.recv(102400)
             data = data.decode("utf-8")
             print("Data received: ", data)
             data = json.loads(data)

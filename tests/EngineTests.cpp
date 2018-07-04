@@ -95,3 +95,21 @@ TEST(EngineTest, PerformTurnSecure){
   engine.PerformRound();
   ASSERT_FALSE(engine.PerformTurnSecure());
 }
+
+TEST(EngineTest, SameDistance){
+  std::unique_ptr<CustomGenerator> generator(new CustomGenerator{{{0.0,6.0}}, {{1.0,0.0}, {1.0,0.0}}});
+
+  Engine engine{std::move(generator)};
+
+  engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
+  engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
+  engine.Init();
+  ASSERT_TRUE(engine.PerformTurnSecure());
+
+  const std::vector<Salesman>& salesmen = engine.GetSalesmen();
+  const Salesman& salesman1 = salesmen.at(0);
+  const Salesman& salesman2 = salesmen.at(1);
+
+  EXPECT_TRUE(testPoint({0,6}, salesman1));
+  EXPECT_TRUE(testPoint({0,6}, salesman2));
+}

@@ -33,9 +33,6 @@ SalesmanDistanceMap Map::MapSalesmanDistance(){
     std::optional<double> salesman_distance = s.DistanceToTarget();
     if(salesman_distance.has_value()){
       double distance = salesman_distance.value();
-      if(mapped_salesmen.find(distance) != mapped_salesmen.end()){
-	throw 1;
-      }
       mapped_salesmen.emplace(std::make_pair(distance, &s));
     }
   }

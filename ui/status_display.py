@@ -27,9 +27,10 @@ class StatusDisplay(wx.Panel):
 
     def setup_scoreboard(self, salesmen):
         self.salesmen = salesmen
-        for scoreboard in self.scoreboard:
-            scoreboard.Clear()
         self.score_sizer.Clear()
+        for scoreboard in self.scoreboard:
+            scoreboard.Destroy()
+        self.scoreboard = []
         for salesman in self.salesmen:
             text = wx.StaticText(self, label=str(0), size=(50,50))
             text.SetFont(wx.Font(24, wx.NORMAL, wx.NORMAL, wx.BOLD))

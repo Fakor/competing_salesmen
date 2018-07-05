@@ -15,11 +15,16 @@ std::string handle_request(std::string request, Engine& engine){
 	response.push_back(NoActionResponse("no turn performed, round already finnished"));
       }
     }
+    else if(auto found_element = element.find("finnish_round"); found_element != element.end()){
+      while(engine.PerformTurnSecure()){
+	response.push_back(TurnPerformedResponse(engine));
+      }
+    }
     else if(auto found_element = element.find("map_generator_settings"); found_element != element.end()){
       engine.SetMapGenerator(map_generator_factory(*found_element));
       response.push_back(NoActionResponse("new settings for map generator"));
     } else {
-      response["unknown_command"] = element;
+      response.push_back(UnknownCommandResponse(element));
     }
   }
 

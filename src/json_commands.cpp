@@ -18,8 +18,8 @@ json NoActionResponse(std::string message){
   return ret;
 }
 
-json UnknownCommandResponse(std::string command){
+json UnknownCommandResponse(json command){
   json ret;
-  ret["unknown_command"] = command;
+  ret["unknown_command"] = command.dump();
   return ret;
 }

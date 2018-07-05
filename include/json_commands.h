@@ -15,6 +15,6 @@ using json = nlohmann::json;
 json NewMapGeneratedResponse(const Map& map);
 json TurnPerformedResponse(const Engine& engine);
 json NoActionResponse(std::string message);
-json UnknownCommandResponse(std::string command);
+json UnknownCommandResponse(json command);
 
 #endif

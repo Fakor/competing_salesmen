@@ -28,11 +28,13 @@ class MainFrame(wx.Frame):
 
         self.generate_map_button = wx.Button(self.panel,wx.ID_ANY,"Generate map")
         self.perform_turn_button = wx.Button(self.panel, wx.ID_ANY,"Perform turn")
+        self.finnish_round_button = wx.Button(self.panel, wx.ID_ANY,"Finnish round")
         self.map_generator_settings_button = wx.Button(self.panel,wx.ID_ANY,"Map settings")
         self.exit_button = wx.Button(self.panel, wx.ID_ANY, "EXIT")
 
         self.generate_map_button.Bind(wx.EVT_BUTTON,self.GenerateMap)
         self.perform_turn_button.Bind(wx.EVT_BUTTON,self.PerformTurn)
+        self.finnish_round_button.Bind(wx.EVT_BUTTON,self.FinnishRound)
         self.map_generator_settings_button.Bind(wx.EVT_BUTTON,self.MapGeneratorSettings)
         self.exit_button.Bind(wx.EVT_BUTTON,self.ExitButtonClicked)
 
@@ -49,6 +51,7 @@ class MainFrame(wx.Frame):
 
         button_sizer.Add(self.generate_map_button, 0, wx.ALL)
         button_sizer.Add(self.perform_turn_button, 0, wx.ALL)
+        button_sizer.Add(self.finnish_round_button, 0, wx.ALL)
         button_sizer.Add(self.map_generator_settings_button, 0, wx.ALL)
         button_sizer.Add(self.exit_button, 0, wx.ALL)
 
@@ -73,6 +76,10 @@ class MainFrame(wx.Frame):
 
     def PerformTurn(self, event):
         server_response = self.client.transceive([{"perform_turn":{}}])
+        self.handle_response(server_response)
+
+    def FinnishRound(self, event):
+        server_response = self.client.transceive([{"finnish_round": {}}])
         self.handle_response(server_response)
 
     def MapGeneratorSettings(self, event):

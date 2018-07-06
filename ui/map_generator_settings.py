@@ -11,6 +11,7 @@ class MapGeneratorSettings(wx.Frame):
         self.settings_used = True
 
         self.settings = {}
+        self.settings["command"] = "map_generator_settings"
         self.settings["type"] = "random"
         self.settings["seed"] = 0
         self.settings["nr_of_cities"] = 10
@@ -52,4 +53,4 @@ class MapGeneratorSettings(wx.Frame):
         self.Hide()
 
     def get_settings_command(self):
-        return {"map_generator_settings": self.settings}
+        return self.settings

@@ -70,16 +70,16 @@ class MainFrame(wx.Frame):
         if not self.map_generator_settings_frame.settings_used:
             self.map_generator_settings_frame.settings_used = True
             command.append(self.map_generator_settings_frame.get_settings_command())
-        command.append({"generate_map": {}})
+        command.append({"command": "generate_map"})
         server_response = self.client.transceive(command)
         self.handle_response(server_response)
 
     def PerformTurn(self, event):
-        server_response = self.client.transceive([{"perform_turn":{}}])
+        server_response = self.client.transceive([{"command": "perform_turn"}])
         self.handle_response(server_response)
 
     def FinnishRound(self, event):
-        server_response = self.client.transceive([{"finnish_round": {}}])
+        server_response = self.client.transceive([{"command": "finnish_round"}])
         self.handle_response(server_response)
 
     def MapGeneratorSettings(self, event):

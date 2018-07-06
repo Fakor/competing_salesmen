@@ -4,24 +4,25 @@ std::string handle_request(std::string request, Engine& engine){
   auto request_json = json::parse(request);
   json response;
   for(auto& element: request_json){
-    if(auto found_element = element.find("generate_map"); found_element != element.end()){
+    std::string command = element["command"];
+    if(command == "generate_map"){
       engine.GenerateNewMap();
       response.push_back(NewMapGeneratedResponse(engine.GetMap()));
     }
-    else if(auto found_element = element.find("perform_turn"); found_element != element.end()){
+    else if(command == "perform_turn"){
       if(engine.PerformTurnSecure()){
 	response.push_back(TurnPerformedResponse(engine));
       } else{
 	response.push_back(NoActionResponse("no turn performed, round already finnished"));
       }
     }
-    else if(auto found_element = element.find("finnish_round"); found_element != element.end()){
+    else if(command == "finnish_round"){
       while(engine.PerformTurnSecure()){
 	response.push_back(TurnPerformedResponse(engine));
       }
     }
-    else if(auto found_element = element.find("map_generator_settings"); found_element != element.end()){
-      engine.SetMapGenerator(map_generator_factory(*found_element));
+    else if(command == "map_generator_settings"){
+      engine.SetMapGenerator(map_generator_factory(element));
       response.push_back(NoActionResponse("new settings for map generator"));
     } else {
       response.push_back(UnknownCommandResponse(element));

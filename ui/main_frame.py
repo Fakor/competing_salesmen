@@ -103,18 +103,17 @@ class MainFrame(wx.Frame):
             salesman.update_status(salesman_data["position"], salesman_data["score"])
 
     def handle_response(self, response):
-        for data in response:
-            if len(data) != 1:
-                raise ValueError("Data contains more then one element {}".format(data))
-            for key, values in data.items():
-                if key == "new_map":
-                    self.InitSalesmen(values["salesmen"])
-                    self.status_display.setup_scoreboard(self.salesmen)
-                    self.map_panel.set_map(values)
-                elif key == "turn_performed":
-                    self.UpdateSalesmen(values)
-                    self.map_panel.Refresh()
-                    self.status_display.update_score()
+        for values in response:
+            key = values["response"]
+            if key == "new_map":
+                print("VALUES", values)
+                self.InitSalesmen(values["salesmen"])
+                self.status_display.setup_scoreboard(self.salesmen)
+                self.map_panel.set_map(values)
+            elif key == "turn_performed":
+                self.UpdateSalesmen(values["salesmen"])
+                self.map_panel.Refresh()
+                self.status_display.update_score()
 
 if __name__ == "__main__":
     app = wx.App(False)

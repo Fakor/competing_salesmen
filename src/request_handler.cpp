@@ -6,18 +6,18 @@ std::string handle_request(std::string request, Engine& engine){
   for(auto& element: request_json){
     std::string command = element["command"];
     if(command == "generate_map"){
-      engine.GenerateNewMap();
+      engine.SetupNewRound();
       response.push_back(NewMapGeneratedResponse(engine.GetMap()));
     }
     else if(command == "perform_turn"){
-      if(engine.PerformTurnSecure()){
+      if(engine.PerformTurn()){
 	response.push_back(TurnPerformedResponse(engine));
       } else{
 	response.push_back(NoActionResponse("no turn performed, round already finnished"));
       }
     }
     else if(command == "finnish_round"){
-      while(engine.PerformTurnSecure()){
+      while(engine.PerformTurn()){
 	response.push_back(TurnPerformedResponse(engine));
       }
     }

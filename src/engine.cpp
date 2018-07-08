@@ -3,15 +3,17 @@
 Engine::Engine(std::unique_ptr<MapGenerator> generator)
   : generator_{std::move(generator)}
 {
-  map_ = generator_->GenerateMap();
-  cities_ = map_.GetCities();
 }
 
 void Engine::AddSelector(SelectorType selector){
   selectors_.emplace_back(std::move(selector));
 }
 
-void Engine::Init(){
+void Engine::SetupNewRound(){
+  round_finnished_ = false;
+  map_ = generator_->GenerateMap();
+  cities_ = map_.GetCities();
+
   std::vector<Salesman>& salesmen = map_.GetSalesmen();
   if(selectors_.size() != map_.GetSalesmen().size()){
     throw "Number of selectors and salesmen mismatch!";
@@ -33,37 +35,28 @@ void Engine::SetMapGenerator(std::unique_ptr<MapGenerator> generator){
   generator_ = std::move(generator);
 }
 
-void Engine::GenerateNewMap(){
-  map_ = generator_->GenerateMap();
-  cities_ = map_.GetCities();
-  Init();
-}
-
 void Engine::SelectTargets(){
     std::for_each(selectors_.begin(), selectors_.end(), [](std::unique_ptr<Selector>& s){s->ChooseTarget();});
 }
 
-void Engine::PerformTurn(){
-    SelectTargets();
-    auto mapped_salesmen = map_.MapSalesmanDistance();
-    if(!mapped_salesmen.empty()){
-        auto mapped_salesmen_iterator = mapped_salesmen.begin();
-        double distance = mapped_salesmen_iterator->first;
-        mapped_salesmen_iterator->second->MoveToTarget();
-        VisitCity(mapped_salesmen_iterator->second->GetTarget());
-	mapped_salesmen_iterator->second->AddScore();
-        while(++mapped_salesmen_iterator != mapped_salesmen.end()){
-            mapped_salesmen_iterator->second->MoveTowardsTarget(distance);
-        }
-    }
-}
-
-bool Engine::PerformTurnSecure(){
-  if(!RoundFinnished()){
-    PerformTurn();
-    return true;
-  } else {
+bool Engine::PerformTurn(){
+  if(round_finnished_){
     return false;
+  }
+  SelectTargets();
+  auto mapped_salesmen = map_.MapSalesmanDistance();
+  if(!mapped_salesmen.empty()){
+    auto mapped_salesmen_iterator = mapped_salesmen.begin();
+    double distance = mapped_salesmen_iterator->first;
+    mapped_salesmen_iterator->second->MoveToTarget();
+    VisitCity(mapped_salesmen_iterator->second->GetTarget());
+    mapped_salesmen_iterator->second->AddScore();
+    while(++mapped_salesmen_iterator != mapped_salesmen.end()){
+      mapped_salesmen_iterator->second->MoveTowardsTarget(distance);
+    }
+  }
+  if(cities_.empty()){
+    round_finnished_ = true;
   }
 }
 
@@ -86,7 +79,7 @@ Scoreboard Engine::GetScoreboard() const{
 }
 
 bool Engine::RoundFinnished() const{
-  return cities_.empty();
+  return round_finnished_;
 }
 
 UnvisitedCities Engine::GetCities() const{

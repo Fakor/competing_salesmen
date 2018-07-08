@@ -18,15 +18,13 @@ class Engine{
 
   void AddSelector(SelectorType selector);
 
-  void Init();
+  void SetupNewRound();
 
   void SelectTargets();
-  void PerformTurn();
-  bool PerformTurnSecure();
+  bool PerformTurn();
   void PerformRound();
 
   void SetMapGenerator(std::unique_ptr<MapGenerator> generator);
-  void GenerateNewMap();
 
   void VisitCity(const Point* city);
 
@@ -48,6 +46,7 @@ class Engine{
   Salesman* NextSalesman();
 
   int current_salesman_index{0};
+  bool round_finnished_ = false;
 };
  
 #endif /* ENGINE_H */

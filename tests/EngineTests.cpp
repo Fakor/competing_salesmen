@@ -18,7 +18,7 @@ TEST(EngineTest, NotEnoughSelectors){
 
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
 
-  ASSERT_ANY_THROW(engine.Init());
+  ASSERT_ANY_THROW(engine.SetupNewRound());
 }
 
 TEST(EngineTest, PerformTurn){
@@ -29,7 +29,7 @@ TEST(EngineTest, PerformTurn){
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
 
-  engine.Init();
+  engine.SetupNewRound();
 
   const std::vector<Salesman>& salesmen = engine.GetSalesmen();
   const Salesman& salesman1 = salesmen.at(0);
@@ -67,13 +67,13 @@ TEST(EngineTest, PerformRound){
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
 
-  engine.Init();
+  engine.SetupNewRound();
   engine.PerformRound();
 
   EXPECT_EQ(Scoreboard({2,1}), engine.GetScoreboard());
   EXPECT_TRUE(engine.RoundFinnished());
 
-  engine.GenerateNewMap();
+  engine.SetupNewRound();
 
   engine.PerformRound();
 
@@ -90,10 +90,10 @@ TEST(EngineTest, PerformTurnSecure){
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
 
-  engine.Init();
-  ASSERT_TRUE(engine.PerformTurnSecure());
+  engine.SetupNewRound();
+  ASSERT_TRUE(engine.PerformTurn());
   engine.PerformRound();
-  ASSERT_FALSE(engine.PerformTurnSecure());
+  ASSERT_FALSE(engine.PerformTurn());
 }
 
 TEST(EngineTest, SameDistance){
@@ -103,8 +103,8 @@ TEST(EngineTest, SameDistance){
 
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
-  engine.Init();
-  ASSERT_TRUE(engine.PerformTurnSecure());
+  engine.SetupNewRound();
+  ASSERT_TRUE(engine.PerformTurn());
 
   const std::vector<Salesman>& salesmen = engine.GetSalesmen();
   const Salesman& salesman1 = salesmen.at(0);

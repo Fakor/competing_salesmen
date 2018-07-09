@@ -56,8 +56,10 @@ bool Engine::PerformTurn(){
     }
   }
   if(cities_.empty()){
+    DetermineWinner();
     round_finnished_ = true;
   }
+  return true;
 }
 
 void Engine::PerformRound(){
@@ -78,8 +80,29 @@ Scoreboard Engine::GetScoreboard() const{
   return scoreboard;
 }
 
+Wins Engine::GetWins() const{
+  std::vector<int> wins;
+  for(auto& selector: selectors_){
+    wins.push_back(selector->Wins());
+  }
+  return wins;
+}
+
 bool Engine::RoundFinnished() const{
   return round_finnished_;
+}
+
+void Engine::DetermineWinner(){
+  int highest_score = 0;
+  Selector* leader = nullptr;
+  for(auto& selector: selectors_){
+    int score = selector->GetSalesman()->GetScore();
+    if(score > highest_score){
+      highest_score = score;
+      leader = selector.get();
+    }
+  }
+  leader->AddWin();
 }
 
 UnvisitedCities Engine::GetCities() const{

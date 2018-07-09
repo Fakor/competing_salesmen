@@ -5,17 +5,21 @@
 #include "salesman.h"
 
 class Selector{
-    public:
-        virtual void ChooseTarget() = 0;
+ public:
+  virtual void ChooseTarget() = 0;
 
-        void SetCities(UnvisitedCities* cities);
-        void SetSalesman(Salesman* salesman);
-        void SetTarget(const City* city);
+  void SetCities(UnvisitedCities* cities);
+  void SetSalesman(Salesman* salesman);
+  void SetTarget(const City* city);
+  const Salesman* GetSalesman() const;
 
-    protected:
-        Salesman* salesman_;
+  void AddWin();
+  int Wins() const;
+ protected:
+  Salesman* salesman_;
 
-        UnvisitedCities* cities_;
+  UnvisitedCities* cities_;
+  int wins_{0};
 };
  
 #endif 

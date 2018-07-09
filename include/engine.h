@@ -29,7 +29,9 @@ class Engine{
   void VisitCity(const Point* city);
 
   Scoreboard GetScoreboard() const;
+  Wins GetWins() const;
   bool RoundFinnished() const;
+  void DetermineWinner();
 
   UnvisitedCities GetCities() const;
   const std::vector<Salesman>& GetSalesmen() const;

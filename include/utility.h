@@ -19,6 +19,7 @@ using Competers = std::vector<Salesman*>;
 using SalesmanDistanceMap = std::multimap<double, Salesman*>;
 
 using Scoreboard = std::vector<int>;
+using Wins = std::vector<int>;
 using SelectorType = std::unique_ptr<Selector>;
 
 #endif /* UTILITY_H */

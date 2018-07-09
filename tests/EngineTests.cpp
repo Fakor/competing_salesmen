@@ -47,6 +47,8 @@ TEST(EngineTest, PerformTurn){
   EXPECT_TRUE(testPoint({0,6}, salesman1));
   EXPECT_TRUE(testPoint({-0.2789,5.58156}, salesman2));
 
+  EXPECT_EQ(Wins({0,0}), engine.GetWins());
+
   EXPECT_EQ(Scoreboard({2,0}), engine.GetScoreboard());
 
   engine.PerformTurn();
@@ -55,6 +57,7 @@ TEST(EngineTest, PerformTurn){
   EXPECT_TRUE(testPoint({5,1}, salesman2));
 
   EXPECT_EQ(Scoreboard({2,1}), engine.GetScoreboard());
+  EXPECT_EQ(Wins({1,0}), engine.GetWins());
 }
 
 TEST(EngineTest, PerformRound){
@@ -74,12 +77,12 @@ TEST(EngineTest, PerformRound){
   EXPECT_TRUE(engine.RoundFinnished());
 
   engine.SetupNewRound();
-
+  EXPECT_EQ(Wins({1,0}), engine.GetWins());
   engine.PerformRound();
 
   EXPECT_EQ(Scoreboard({2,1}), engine.GetScoreboard());
   EXPECT_TRUE(engine.RoundFinnished());
-
+  EXPECT_EQ(Wins({2,0}), engine.GetWins());
 }
 
 TEST(EngineTest, PerformTurnSecure){

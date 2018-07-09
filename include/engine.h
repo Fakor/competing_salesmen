@@ -38,6 +38,8 @@ class Engine{
   std::vector<Point> GetSalesmanPositions() const;
 
   const Map& GetMap() const;
+
+  const std::vector<SelectorType>& GetSelectors() const;
  private:
   std::unique_ptr<MapGenerator> generator_;
   Map map_;

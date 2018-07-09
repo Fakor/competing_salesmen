@@ -5,6 +5,11 @@
 
 #include "cxxopts.hpp"
 
+#include "random_generator.h"
+#include "basic_selectors.h"
+#include "engine.h"
+#include "log_tools.h"
+
 int main(int argc, char **argv){
   cxxopts::Options options("Competing Salesman", "Command line version");
   options.add_options()
@@ -24,6 +29,23 @@ int main(int argc, char **argv){
   std::cout << "Seed: " << seed << std::endl;
   std::cout << "Rounds: " << rounds << std::endl;
 
+  std::unique_ptr<RandomGenerator> generator(new RandomGenerator(5,3,2,seed));
+  Engine engine(std::move(generator));
 
+  engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
+  engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
+
+  for(int i = 0; i < rounds; ++i){
+    engine.SetupNewRound();
+    engine.PerformRound();
+  }
+
+  int i = 1;
+  for(auto& selector: engine.GetSelectors()){
+    int wins = selector->Wins();
+    double percentage = 100 * static_cast<double>(wins) / rounds;
+    std::cout << "Selector " << i << ": " << selector->Wins() << " (" << percentage << " %)" << std::endl;
+    ++i;
+  }
   return 0;
 }

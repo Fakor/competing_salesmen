@@ -120,3 +120,7 @@ std::vector<Point> Engine::GetSalesmanPositions() const{
 const Map& Engine::GetMap() const{
   return map_;
 }
+
+const std::vector<SelectorType>& Engine::GetSelectors() const{
+  return selectors_;
+}

@@ -20,7 +20,8 @@ define TEST_OBJECTS_
 include/test_tools.o \
 PointTests.o \
 SalesmanTests.o \
-EngineTests.o
+EngineTests.o \
+SelectorTests.o
 endef
 
 TEST_OBJECTS=$(addprefix $(TST_OBJ_FOLDER)/, $(TEST_OBJECTS_))

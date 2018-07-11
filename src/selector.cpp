@@ -8,6 +8,11 @@ void Selector::SetSalesman(Salesman* salesman){
   salesman_ = salesman;
 }
 
+bool Selector::LastTargetPresent() const{
+  auto city_find = std::find(cities_->begin(), cities_->end(), salesman_->GetTarget());
+  return city_find != cities_->end();
+}
+
 const Salesman *Selector::GetSalesman() const{
   return salesman_;
 }

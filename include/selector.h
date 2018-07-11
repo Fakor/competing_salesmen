@@ -1,6 +1,8 @@
 #ifndef SELECTOR_H
 #define SELECTOR_H 
 
+#include <algorithm>
+
 #include "utility.h"
 #include "salesman.h"
 
@@ -11,6 +13,7 @@ class Selector{
   void SetCities(UnvisitedCities* cities);
   void SetSalesman(Salesman* salesman);
   void SetTarget(const City* city);
+  bool LastTargetPresent() const;
   const Salesman* GetSalesman() const;
 
   void AddWin();

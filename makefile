@@ -26,9 +26,9 @@ INCLUDE_PATHS=-I$(COMPETING_HOME)/include
 LIBS=-lboost_system
 endif
 
-ifeq ($(MAKECMDGOALS), command)
-MAIN=$(SRC_FOLDER)/cs_command_line.cpp
-EXECUTABLE=$(COMPETING_HOME)/command
+ifeq ($(MAKECMDGOALS), cruncher)
+MAIN=$(SRC_FOLDER)/cruncher.cpp
+EXECUTABLE=$(COMPETING_HOME)/cruncher
 OBJECTS=$(SRC_OBJECTS)
 INCLUDE_PATHS=-I$(COMPETING_HOME)/include
 endif
@@ -41,7 +41,7 @@ $(info CC $(CPP))
 
 DEPENDENCY_FILES=$(patsubst %.o,%.d,$(OBJECTS))
 
-build test server command: $(EXECUTABLE)
+build test server cruncher: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS) $(MAIN)
 	$(CPP) $(MAIN) $(OBJECTS) $(LIBS) -o $@

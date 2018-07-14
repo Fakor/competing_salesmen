@@ -14,7 +14,8 @@ int main(int argc, char **argv){
   cxxopts::Options options("Competing Salesman", "Command line version");
   options.add_options()
     ("s,seed", "Start seed number", cxxopts::value<int>())
-    ("r,rounds", "Number of rounds", cxxopts::value<int>()->default_value("1"));
+    ("r,rounds", "Number of rounds", cxxopts::value<int>()->default_value("1"))
+    ("c,cities", "Number of cities", cxxopts::value<int>()->default_value("51"));
 
   auto result = options.parse(argc, argv);
   int seed;
@@ -25,11 +26,12 @@ int main(int argc, char **argv){
     seed=result["seed"].as<int>();
   }
   int rounds = result["rounds"].as<int>();
+  int cities = result["cities"].as<int>();
 
   std::cout << "Seed: " << seed << std::endl;
   std::cout << "Rounds: " << rounds << std::endl;
 
-  std::unique_ptr<RandomGenerator> generator(new RandomGenerator(5,3,2,seed));
+  std::unique_ptr<RandomGenerator> generator(new RandomGenerator(cities,3,2,seed));
   Engine engine(std::move(generator));
 
   engine.AddSelector(std::unique_ptr<Selector>(new Closest()));
